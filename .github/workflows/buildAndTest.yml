@@ -24,9 +24,8 @@ jobs:
         run: npm run build
       - name: Add .env
         run: |
-          rm -rf .env
           touch .env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
           echo "DIRECT_URL=${{ secrets.DIRECT_URL }}" >> .env
       - name: deploy-prisma
         run: npm run migrate:deploy

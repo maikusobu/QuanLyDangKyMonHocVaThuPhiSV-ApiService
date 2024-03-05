@@ -11,7 +11,7 @@ export class TaskScheduleService implements OnModuleInit {
   handleCron() {
     axios
       .get(
-        `${this.configService.get<string>("pingUrl")}/${END_POINTS.BASE}/task-schedule`,
+        `${this.configService.get<string>("url")}/${END_POINTS.BASE}/task-schedule`,
       )
       .then(() => {
         console.log(

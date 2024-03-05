@@ -6,11 +6,11 @@ import { ConfigService } from "@nestjs/config";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
-  const port = configService.get<string>("PORT");
+  const url = configService.get<string>("url");
   app.enableCors();
   app.setGlobalPrefix(END_POINTS.BASE);
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
-  console.log(`Server running on http://localhost:${port || 3000}`);
+  console.log(`Server running on ${url}`);
 }
 bootstrap();

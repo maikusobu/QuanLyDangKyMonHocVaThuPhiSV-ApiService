@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build && npx prisma generate",
+    "build": "nest build",
     "format": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "format:fix": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -15,6 +15,7 @@
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint:fix": "eslint --fix \"{src,apps,libs,test}/**/*.ts\"",
+    "generate": "prisma generate",
     "migrate:dev": "prisma migrate dev ",
     "migrate:deploy": "prisma migrate deploy",
     "db:generate": "prisma generate",

@@ -1,13 +1,12 @@
 import { Injectable, OnModuleInit, Get } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { Cron, CronExpression } from "@nestjs/schedule";
+import { Cron } from "@nestjs/schedule";
 import { END_POINTS } from "src/utils/constants";
-
 import axios from "axios";
 @Injectable()
 export class TaskScheduleService implements OnModuleInit {
   constructor(private configService: ConfigService) {}
-  @Cron(CronExpression.EVERY_10_MINUTES)
+  @Cron("0 0-23/3 * * *")
   handleCron() {
     axios
       .get(

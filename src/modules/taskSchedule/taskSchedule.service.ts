@@ -1,10 +1,26 @@
-import { Injectable, Logger } from "@nestjs/common";
-import { Interval } from "@nestjs/schedule";
+import { Injectable, OnModuleInit } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { Cron, CronExpression } from "@nestjs/schedule";
+import axios from "axios";
 @Injectable()
-export class TaskScheduleService {
-  private readonly logger = new Logger(TaskScheduleService.name);
-  @Interval(10000 * 60)
-  handleInterval() {
-    this.logger.log("Called every 10 minutes");
+export class TasksService implements OnModuleInit {
+  constructor(private configService: ConfigService) {}
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  handleCron() {
+    axios
+      .get(this.configService.get<string>("PING_URL"))
+      .then(() => {
+        console.log(
+          `Server pinged successfully at ${new Date().toISOString()}`,
+        );
+      })
+      .catch((error) => {
+        console.error(`Server ping failed: ${error}`);
+      });
+  }
+
+  onModuleInit() {
+    console.log("Initialization...");
+    this.handleCron();
   }
 }

@@ -1,3 +1,3 @@
 export const END_POINTS = {
-  BASE: "/api/v1",
+  BASE: "api/v1",
 };

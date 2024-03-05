@@ -1,6 +1,8 @@
-import { Injectable, OnModuleInit } from "@nestjs/common";
+import { Injectable, OnModuleInit, Get } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Cron, CronExpression } from "@nestjs/schedule";
+import { END_POINTS } from "src/utils/constants";
+
 import axios from "axios";
 @Injectable()
 export class TaskScheduleService implements OnModuleInit {
@@ -8,7 +10,9 @@ export class TaskScheduleService implements OnModuleInit {
   @Cron(CronExpression.EVERY_10_MINUTES)
   handleCron() {
     axios
-      .get(this.configService.get<string>("PING_URL"))
+      .get(
+        `${this.configService.get<string>("pingUrl")}/${END_POINTS.BASE}/task-schedule`,
+      )
       .then(() => {
         console.log(
           `Server pinged successfully at ${new Date().toISOString()}`,
@@ -18,7 +22,10 @@ export class TaskScheduleService implements OnModuleInit {
         console.error(`Server ping failed: ${error}`);
       });
   }
-
+  @Get()
+  GetClientRequest() {
+    return "Return server ping";
+  }
   onModuleInit() {
     console.log("Initialization...");
     this.handleCron();

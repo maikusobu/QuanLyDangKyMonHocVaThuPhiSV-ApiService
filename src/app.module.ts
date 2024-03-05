@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ScheduleModule } from "@nestjs/schedule";
 import { ConfigModule } from "@nestjs/config";
+import configuration from "./config/configuration";
 import modules from "./modules";
 @Module({
   imports: [
@@ -8,6 +9,7 @@ import modules from "./modules";
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.env`,
+      load: [configuration],
     }),
     ...modules,
   ],

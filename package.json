@@ -25,7 +25,7 @@
     "db:reset": "prisma db reset --force",
     "db:drop": "prisma db drop",
     "db:pull": "prisma db pull",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",

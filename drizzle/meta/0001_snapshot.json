@@ -1,6 +1,6 @@
 {
-  "id": "327fc728-f8b1-4e8d-9a91-892edadc0a99",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "53933cd3-2883-4caf-9f39-5c77316c65d2",
+  "prevId": "327fc728-f8b1-4e8d-9a91-892edadc0a99",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -46,6 +46,64 @@
         }
       }
     },
+    "available_course": {
+      "name": "available_course",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "year": {
+          "name": "year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "term": {
+          "name": "term",
+          "type": "term",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "available_course_item": {
+      "name": "available_course_item",
+      "schema": "",
+      "columns": {
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "available_course_id": {
+          "name": "available_course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "available_course_item_available_course_id_course_id_pk": {
+          "name": "available_course_item_available_course_id_course_id_pk",
+          "columns": [
+            "available_course_id",
+            "course_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
     "course": {
       "name": "course",
       "schema": "",
@@ -84,6 +142,76 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "course_registration": {
+      "name": "course_registration",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "registration_date": {
+          "name": "registration_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "year": {
+          "name": "year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "term": {
+          "name": "term",
+          "type": "term",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "student_id": {
+          "name": "student_id",
+          "type": "char(8)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "course_registration_item": {
+      "name": "course_registration_item",
+      "schema": "",
+      "columns": {
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "course_registration_id": {
+          "name": "course_registration_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "course_registration_item_course_registration_id_course_id_pk": {
+          "name": "course_registration_item_course_registration_id_course_id_pk",
+          "columns": [
+            "course_registration_id",
+            "course_id"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "course_type": {
@@ -396,6 +524,80 @@
           ]
         }
       },
+      "uniqueConstraints": {}
+    },
+    "tuition": {
+      "name": "tuition",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "tuition_date": {
+          "name": "tuition_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_registered_amount": {
+          "name": "total_registered_amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_actual_amount": {
+          "name": "total_actual_amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "course_registration_id": {
+          "name": "course_registration_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "tuition_payment": {
+      "name": "tuition_payment",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "payment_date": {
+          "name": "payment_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ammount": {
+          "name": "ammount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tuition_id": {
+          "name": "tuition_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }
   },

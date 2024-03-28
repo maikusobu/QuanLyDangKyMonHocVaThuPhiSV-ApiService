@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { ValidationPipe } from "@nestjs/common";
-import { END_POINTS } from "./utils/constants";
+import { END_POINTS } from "./util/constants";
 import { ConfigService } from "@nestjs/config";
 
 async function bootstrap() {

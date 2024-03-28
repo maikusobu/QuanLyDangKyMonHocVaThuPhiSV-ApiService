@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { ScheduleModule } from "@nestjs/schedule";
 import { ConfigModule } from "@nestjs/config";
 import configuration from "./config/configuration";
-import modules from "./modules";
+import modules from "./module";
 @Module({
   imports: [
     ScheduleModule.forRoot(),

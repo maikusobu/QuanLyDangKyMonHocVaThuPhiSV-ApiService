@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit, Get } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Cron } from "@nestjs/schedule";
-import { END_POINTS } from "src/utils/constants";
+import { END_POINTS } from "src/util/constants";
 import axios from "axios";
 @Injectable()
 export class TaskScheduleService implements OnModuleInit {

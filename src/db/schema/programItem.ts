@@ -1,18 +1,16 @@
-import { integer, pgTable, primaryKey } from "drizzle-orm/pg-core";
+import { integer, pgTable, serial, varchar } from "drizzle-orm/pg-core";
 import { program } from "./program";
 import { course } from "./course";
 import { relations } from "drizzle-orm";
+import { termEnum } from "./enums";
 
-export const programItem = pgTable(
-  "program_item",
-  {
-    programId: integer("program_id").notNull(),
-    courseId: integer("course_id").notNull(),
-  },
-  (table) => ({
-    pk: primaryKey({ columns: [table.programId, table.courseId] }),
-  }),
-);
+export const programItem = pgTable("program_item", {
+  id: serial("id").primaryKey(),
+  programId: integer("program_id").notNull(),
+  courseId: integer("course_id").notNull(),
+  term: termEnum("term").notNull(),
+  note: varchar("note", { length: 100 }),
+});
 
 export const programItemRelations = relations(programItem, ({ one }) => ({
   program: one(program, {

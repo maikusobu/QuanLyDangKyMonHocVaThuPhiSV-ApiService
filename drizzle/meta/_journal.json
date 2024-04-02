@@ -15,6 +15,13 @@
       "when": 1711592079553,
       "tag": "0001_cloudy_cyclops",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1712034957462,
+      "tag": "0002_nervous_outlaw_kid",
+      "breakpoints": true
     }
   ]
 }

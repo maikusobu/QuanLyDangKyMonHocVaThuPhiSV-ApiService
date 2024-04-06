@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  quanlydangkymonhocvathuphisvbackend:
+    image: quanlydangkymonhocvathuphisvbackend
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+      CI: true
+      HUSKY: 0
+      DATABASE_URL: "postgres://postgres.cekcaxveddzfhnmtamgx:n538a%26Xzv._ZbKa@@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"
+      
+    ports:
+      - 3000:3000

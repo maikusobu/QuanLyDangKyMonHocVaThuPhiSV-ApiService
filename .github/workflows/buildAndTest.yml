@@ -23,6 +23,7 @@ jobs:
           touch .env
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
           echo "DIRECT_URL=${{ secrets.DIRECT_URL }}" >> .env
+          echo "HUSKY=0" >> .env
           echo "CI=true" >> .env
       - name: Install dependencies
         run: npm ci

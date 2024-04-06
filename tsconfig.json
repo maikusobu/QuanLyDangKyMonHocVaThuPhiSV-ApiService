@@ -13,6 +13,8 @@
       "@module/*": ["./src/modules/*"],
       "@repository/*": ["./src/repository/*"],
       "@util/*": ["./src/util/*"],
+      "@config/*": ["./src/config/*"],
+      "@common/*": ["./src/common/*"],
     },
     "baseUrl": "./",
     "incremental": true,

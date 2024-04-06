@@ -14,7 +14,7 @@ export const user = pgTable("user", {
 export type userInsertType = typeof user.$inferInsert;
 export type userSelectType = typeof user.$inferSelect;
 export const userRelations = relations(user, ({ one }) => ({
-  program: one(department, {
+  department: one(department, {
     fields: [user.departmentId],
     references: [department.id],
   }),

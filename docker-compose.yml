@@ -7,12 +7,6 @@ services:
       context: .
       dockerfile: ./Dockerfile
     env_file:
-      - .env
-    environment:
-      NODE_ENV: production
-      CI: true
-      HUSKY: 0
-      
-      
+      - .env  
     ports:
       - 3000:3000

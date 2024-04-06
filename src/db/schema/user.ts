@@ -11,7 +11,8 @@ export const user = pgTable("user", {
   role: roleEnum("role").notNull(),
   departmentId: integer("department_id"),
 });
-
+export type userInsertType = typeof user.$inferInsert;
+export type userSelectType = typeof user.$inferSelect;
 export const userRelations = relations(user, ({ one }) => ({
   program: one(department, {
     fields: [user.departmentId],

@@ -9,6 +9,11 @@
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
+    "paths": {
+      "@module/*": ["./src/modules/*"],
+      "@repository/*": ["./src/repository/*"],
+      "@util/*": ["./src/util/*"],
+    },
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,

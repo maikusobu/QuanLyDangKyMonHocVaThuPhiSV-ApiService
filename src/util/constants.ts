@@ -4,3 +4,7 @@ export const END_POINTS = {
     BASE: "task-schedule",
   },
 };
+export const jwtConstants = {
+  secret: "are51secretkey",
+  liveTimeAt: "1h",
+};

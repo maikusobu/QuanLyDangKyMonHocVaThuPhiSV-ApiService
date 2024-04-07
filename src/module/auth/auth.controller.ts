@@ -3,6 +3,7 @@ import { LoginDto } from "./dto/LoginDto";
 import { AuthService } from "./auth.service";
 import { Response, Request } from "express";
 import { Public } from "@common/decorators/public.decorator";
+
 @Controller("auth")
 @Public()
 export class AuthController {

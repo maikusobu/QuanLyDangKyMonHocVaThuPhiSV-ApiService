@@ -1,5 +1,5 @@
 import { TaskScheduleModule } from "./taskSchedule/taskSchedule.module";
-import { RepositoryModule } from "./repository/repository.module";
-const modules = [TaskScheduleModule, RepositoryModule];
+import { AuthModule } from "./auth/auth.module";
+const modules = [TaskScheduleModule, AuthModule];
 
 export default modules;

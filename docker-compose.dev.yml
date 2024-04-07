@@ -2,11 +2,16 @@ version: '3.4'
 services:
   redis:
     image: redis
+    
     ports:
       - 6379:6379
   db:
     image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env.development
     ports:
       - 5432:5432
+volumes:
+  postgres_data:

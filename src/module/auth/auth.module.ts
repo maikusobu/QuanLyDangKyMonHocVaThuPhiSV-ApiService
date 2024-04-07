@@ -11,6 +11,6 @@ import { AtStrategyProvider } from "@common/strategies/at.strategy";
     }),
   ],
   providers: [AuthService, AtStrategyProvider],
-  exports: [AuthService],
+  exports: [AuthService, AtStrategyProvider],
 })
 export class AuthModule {}

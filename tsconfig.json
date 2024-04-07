@@ -10,7 +10,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "paths": {
-      "@module/*": ["./src/modules/*"],
+      "@module/*": ["./src/module/*"],
       "@repository/*": ["./src/repository/*"],
       "@util/*": ["./src/util/*"],
       "@config/*": ["./src/config/*"],

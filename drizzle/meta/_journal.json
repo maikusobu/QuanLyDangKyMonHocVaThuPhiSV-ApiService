@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1711565139106,
-      "tag": "0000_harsh_magneto",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1711592079553,
-      "tag": "0001_cloudy_cyclops",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1712034957462,
-      "tag": "0002_nervous_outlaw_kid",
+      "when": 1712587536341,
+      "tag": "0000_wide_unicorn",
       "breakpoints": true
     }
   ]

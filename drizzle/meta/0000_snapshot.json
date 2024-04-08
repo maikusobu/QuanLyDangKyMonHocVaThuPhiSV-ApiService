@@ -1,11 +1,11 @@
 {
-  "id": "327fc728-f8b1-4e8d-9a91-892edadc0a99",
+  "id": "09d78220-4b6f-4a5c-a0a7-f0798e782915",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
   "tables": {
-    "admin": {
-      "name": "admin",
+    "available_course": {
+      "name": "available_course",
       "schema": "",
       "columns": {
         "id": {
@@ -14,37 +14,53 @@
           "primaryKey": true,
           "notNull": true
         },
-        "full_name": {
-          "name": "full_name",
-          "type": "varchar(100)",
+        "year": {
+          "name": "year",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "email": {
-          "name": "email",
-          "type": "varchar(320)",
+        "term": {
+          "name": "term",
+          "type": "term",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "available_course_item": {
+      "name": "available_course_item",
+      "schema": "",
+      "columns": {
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "hashed_password": {
-          "name": "hashed_password",
-          "type": "varchar(100)",
+        "available_course_id": {
+          "name": "available_course_id",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "admin_email_unique": {
-          "name": "admin_email_unique",
-          "nullsNotDistinct": false,
+      "compositePrimaryKeys": {
+        "available_course_item_available_course_id_course_id_pk": {
+          "name": "available_course_item_available_course_id_course_id_pk",
           "columns": [
-            "email"
+            "available_course_id",
+            "course_id"
           ]
         }
-      }
+      },
+      "uniqueConstraints": {}
     },
     "course": {
       "name": "course",
@@ -86,6 +102,76 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "course_registration": {
+      "name": "course_registration",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "registration_date": {
+          "name": "registration_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "year": {
+          "name": "year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "term": {
+          "name": "term",
+          "type": "term",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "student_id": {
+          "name": "student_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "course_registration_item": {
+      "name": "course_registration_item",
+      "schema": "",
+      "columns": {
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "course_registration_id": {
+          "name": "course_registration_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "course_registration_item_course_registration_id_course_id_pk": {
+          "name": "course_registration_item_course_registration_id_course_id_pk",
+          "columns": [
+            "course_registration_id",
+            "course_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
     "course_type": {
       "name": "course_type",
       "schema": "",
@@ -121,6 +207,58 @@
           ]
         }
       }
+    },
+    "department": {
+      "name": "department",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "department_permission": {
+      "name": "department_permission",
+      "schema": "",
+      "columns": {
+        "department_id": {
+          "name": "department_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permission_id": {
+          "name": "permission_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "department_permission_department_id_permission_id_pk": {
+          "name": "department_permission_department_id_permission_id_pk",
+          "columns": [
+            "department_id",
+            "permission_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
     },
     "district": {
       "name": "district",
@@ -186,6 +324,88 @@
         }
       }
     },
+    "user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(320)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hashed_password": {
+          "name": "hashed_password",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "role",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "department_id": {
+          "name": "department_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_email_unique": {
+          "name": "user_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
+    },
+    "permission": {
+      "name": "permission",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "endpoint": {
+          "name": "endpoint",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "action": {
+          "name": "action",
+          "type": "action",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "province": {
       "name": "province",
       "schema": "",
@@ -222,7 +442,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "char(8)",
+          "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
@@ -350,12 +570,6 @@
           "primaryKey": true,
           "notNull": true
         },
-        "term": {
-          "name": "term",
-          "type": "term",
-          "primaryKey": false,
-          "notNull": true
-        },
         "major_id": {
           "name": "major_id",
           "type": "integer",
@@ -372,6 +586,12 @@
       "name": "program_item",
       "schema": "",
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
         "program_id": {
           "name": "program_id",
           "type": "integer",
@@ -383,28 +603,124 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true
+        },
+        "term": {
+          "name": "term",
+          "type": "term",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "note": {
+          "name": "note",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "program_item_program_id_course_id_pk": {
-          "name": "program_item_program_id_course_id_pk",
-          "columns": [
-            "program_id",
-            "course_id"
-          ]
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "tuition": {
+      "name": "tuition",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "tuition_date": {
+          "name": "tuition_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_registered_amount": {
+          "name": "total_registered_amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_actual_amount": {
+          "name": "total_actual_amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "course_registration_id": {
+          "name": "course_registration_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
         }
       },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "tuition_payment": {
+      "name": "tuition_payment",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "payment_date": {
+          "name": "payment_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ammount": {
+          "name": "ammount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tuition_id": {
+          "name": "tuition_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }
   },
   "enums": {
+    "action": {
+      "name": "action",
+      "values": {
+        "get": "get",
+        "post": "post",
+        "put": "put",
+        "patch": "patch",
+        "delete": "delete"
+      }
+    },
     "gender": {
       "name": "gender",
       "values": {
         "male": "male",
         "female": "female"
+      }
+    },
+    "role": {
+      "name": "role",
+      "values": {
+        "admin": "admin",
+        "employee": "employee",
+        "student": "student"
       }
     },
     "term": {

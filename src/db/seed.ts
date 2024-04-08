@@ -4,14 +4,8 @@ import { user } from "./schema/user";
 import { permission } from "./schema";
 import { permissionDATA } from "./permission/permission";
 import { faker } from "@faker-js/faker";
-
-import * as dotenv from "dotenv";
 import { hashPassword } from "../repository/auth/helper/auth.helper";
 
-dotenv.config({ path: "./.env.development" });
-
-if (!("DATABASE_URL" in process.env))
-  throw new Error("DATABASE_URL not found on .env.development");
 //id_department
 // 1: Phòng quản lý sinh viên
 // 2: Phòng kế hoạch tài chính

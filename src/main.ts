@@ -11,9 +11,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   const reflector = app.get("Reflector");
-  const url = configService.get<string>("url");
   const port = configService.get<number>("port");
   const env = configService.get<string>("env");
+  const jwt = configService.get<string>("jwt_access_secret");
   app.enableCors({
     origin: true,
     credentials: true,
@@ -29,8 +29,9 @@ async function bootstrap() {
   );
   app.use(cookieParser.default());
   await app.listen(port);
-  console.log(`Server running on ${url}`);
+  console.log(`Server running on ${port}`);
   console.log(`In ${env} mode`);
+  console.log(`JWT secret: ${jwt}`);
 }
 
 bootstrap();

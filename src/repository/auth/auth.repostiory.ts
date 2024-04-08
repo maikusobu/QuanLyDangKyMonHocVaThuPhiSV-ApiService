@@ -43,7 +43,7 @@ export class AuthRepository {
     const refreshToken = await this.jwtService.signAsync(
       { id: user.id },
       {
-        secret: this.config.get<string>("jwt_refresh_secret"),
+        secret: this.config.get<string>("jwt_access_secret"),
         expiresIn: jwtRTConstants.liveTimeAt,
       },
     );

@@ -3,23 +3,25 @@ import { LoginDto } from "./dto/LoginDto";
 import { AuthService } from "./auth.service";
 import { Response, Request } from "express";
 import { Public } from "@common/decorators/public.decorator";
+import { END_POINTS } from "@util/constants";
+const { AUTH } = END_POINTS;
 
-@Controller("auth")
-@Public()
+@Controller(AUTH.BASE)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  @Post("login")
+  @Post(AUTH.LOGIN)
+  @Public()
   async login(
     @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     return this.authService.login(loginDto, res);
   }
-  @Post("logout")
+  @Post(AUTH.LOGOUT)
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     return this.authService.logout(req, res);
   }
-  @Get("refresh")
+  @Get(AUTH.REFRESH)
   async refresh(@Req() req: Request) {
     return this.authService.refresh(req);
   }

@@ -1,4 +1,4 @@
-import { char, date, integer, pgTable, serial } from "drizzle-orm/pg-core";
+import { date, integer, pgTable, serial } from "drizzle-orm/pg-core";
 import { termEnum } from "./enums";
 import { student } from "./student";
 import { courseRegistrationItem } from "./courseRegistrationItem";
@@ -10,7 +10,7 @@ export const courseRegistration = pgTable("course_registration", {
   registrationDate: date("registration_date").notNull(),
   year: integer("year").notNull(),
   term: termEnum("term").notNull(),
-  studentId: char("student_id", { length: 8 }).notNull(),
+  studentId: integer("student_id").notNull(),
 });
 
 export const courseRegistrationRelations = relations(

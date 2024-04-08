@@ -1,13 +1,13 @@
-import { char, date, integer, pgTable, varchar } from "drizzle-orm/pg-core";
+import { date, integer, pgTable, serial, varchar } from "drizzle-orm/pg-core";
 import { major } from "./major";
 import { district } from "./district";
 import { priority } from "./priority";
 import { genderEnum } from "./enums";
-import { relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { courseRegistration } from "./courseRegistration";
 
 export const student = pgTable("student", {
-  id: char("id", { length: 8 }).primaryKey(),
+  id: serial("id").primaryKey(),
   name: varchar("name", { length: 100 }).notNull(),
   dateOfBirth: date("date_of_birth").notNull(),
   gender: genderEnum("gender").notNull(),
@@ -31,3 +31,6 @@ export const studentRelations = relations(student, ({ one, many }) => ({
   }),
   courseRegistrations: many(courseRegistration),
 }));
+
+export type Student = InferSelectModel<typeof student>;
+export type InsertStudent = InferInsertModel<typeof student>;

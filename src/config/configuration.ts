@@ -7,4 +7,3 @@ export default () => ({
       : process.env.URL_PROD,
   jwt_access_secret: process.env.JWT_ACCESS_SECRET,
 });
-console.log(process.env.JWT_ACCESS_SECRET);

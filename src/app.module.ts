@@ -10,7 +10,7 @@ import modules from "./module";
     ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [`.env.development`],
+      envFilePath: [`.env`],
       load: [configuration],
     }),
     DrizzleModule.forRoot({ isGlobal: true }),

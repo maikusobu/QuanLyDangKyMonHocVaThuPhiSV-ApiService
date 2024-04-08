@@ -22,3 +22,8 @@
 **/values.dev.yaml
 LICENSE
 README.md
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault

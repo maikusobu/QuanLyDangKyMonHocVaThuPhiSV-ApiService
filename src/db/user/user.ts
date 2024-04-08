@@ -1,5 +1,4 @@
 // Phòng đào tạo
-import { faker } from "@faker-js/faker";
 export const user_pdt = [
   {
     email: "user_pdt@gmail.com",
@@ -10,12 +9,12 @@ export const user_pdt = [
 ];
 // Phòng quản lý sinh viên
 export const user_pqlsv = [
-    {
-        email: "user_pqlsv@gmail.com",
-        fullName: "user_pqlsv",
-        role: "employee",
-        password: "12345678@Xx",
-    }
+  {
+    email: "user_pqlsv@gmail.com",
+    fullName: "user_pqlsv",
+    role: "employee",
+    password: "12345678@Xx",
+  },
 ];
 // Phòng kế hoạch tài chính
 export const user_pkhtc = [

@@ -1,24 +1,24 @@
 export const END_POINTS = {
   BASE: "api/v1",
   TASK_SCHEDULE: {
-    BASE: "task-schedule",
+    BASE: "/task-schedule",
   },
   USER: {
-    BASE: "user",
+    BASE: "/user",
   },
   AUTH: {
-    BASE: "auth",
-    LOGIN: "login",
-    LOGOUT: "logout",
-    REFRESH: "refresh",
+    BASE: "/auth",
+    LOGIN: "/login",
+    LOGOUT: "/logout",
+    REFRESH: "/refresh",
   },
   STUDENT: {
-    BASE: "student",
-    CREATE: "create",
+    BASE: "/student",
+    CREATE: "/create",
   },
   SUBJECT: {
-    BASE: "subject",
-    CREATE: "create",
+    BASE: "/subject",
+    CREATE: "/create",
   },
 };
 export enum ROLE_NAME {

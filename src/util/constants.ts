@@ -14,11 +14,15 @@ export const END_POINTS = {
   },
   STUDENT: {
     BASE: "/student",
-    CREATE: "/create",
+    CREATE: "",
   },
-  SUBJECT: {
-    BASE: "/subject",
-    CREATE: "/create",
+  COURSE: {
+    BASE: "/course",
+    CREATE: "",
+    GET_ALL: "",
+    GET_ONE: "/:id",
+    UPDATE: "/:id",
+    DELETE: "/:id",
   },
 };
 export enum ROLE_NAME {

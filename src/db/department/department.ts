@@ -1,6 +1,6 @@
 export const departmentDATA = [
   {
-    name: "Phòng quản lý sinh viên",
+    name: "Phòng công tác sinh viên",
   },
   {
     name: "Phòng kế hoạch tài chính",

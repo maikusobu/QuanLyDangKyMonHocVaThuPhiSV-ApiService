@@ -32,5 +32,5 @@ export const studentRelations = relations(student, ({ one, many }) => ({
   courseRegistrations: many(courseRegistration),
 }));
 
-export type Student = InferSelectModel<typeof student>;
+export type SelectStudent = InferSelectModel<typeof student>;
 export type InsertStudent = InferInsertModel<typeof student>;

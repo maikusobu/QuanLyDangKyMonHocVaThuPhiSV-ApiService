@@ -1,7 +1,7 @@
 import { integer, pgTable, serial, varchar } from "drizzle-orm/pg-core";
 import { courseType } from "./courseType";
 import { faculty } from "./faculty";
-import { relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { programItem } from "./programItem";
 
 export const course = pgTable("course", {
@@ -23,3 +23,6 @@ export const courseRelations = relations(course, ({ one, many }) => ({
   }),
   programItems: many(programItem),
 }));
+
+export type SelectCourse = InferSelectModel<typeof course>;
+export type InsertCourse = InferInsertModel<typeof course>;

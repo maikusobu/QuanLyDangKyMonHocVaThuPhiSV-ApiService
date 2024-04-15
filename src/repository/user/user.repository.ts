@@ -37,6 +37,14 @@ export class UserRepository {
     }
     return true;
   }
+  async findUserWithDepartment(userId: number) {
+    return await this.drizzle.query.user.findFirst({
+      where: (user, { eq }) => eq(user.id, userId),
+      with: {
+        department: true,
+      },
+    });
+  }
   async updateById(id: number, userUpdate: userInsertType) {
     return await this.drizzle
       .update(user)

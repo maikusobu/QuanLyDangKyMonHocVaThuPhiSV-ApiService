@@ -33,14 +33,16 @@ export class AuthRepository {
     return token.accessToken;
   }
   private async generateToken(user: userSelectType) {
-    const department = await this.userRepository.findUserWithDepartment(
+    const userWithDepartment = await this.userRepository.findUserWithDepartment(
       user.id,
     );
     const accessToken = await this.jwtService.signAsync(
       {
         id: user.id,
         role: user.role,
-        department: department ? department.department.name : null,
+        department: userWithDepartment.department
+          ? userWithDepartment.department.name
+          : null,
       },
       {
         secret: this.config.get<string>("jwt_access_secret"),

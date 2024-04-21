@@ -6,6 +6,7 @@ import { ConfigService } from "@nestjs/config";
 import { AtGuard } from "@common/guards/at.guard";
 import { PermissionGuard } from "@common/guards/permission.guard";
 import { AuthRepository } from "@repository/auth/auth.repostiory";
+import { Response } from "express";
 import * as cookieParser from "cookie-parser";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -27,6 +28,12 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  const server = app.getHttpServer();
+  const router = server._events.request._router;
+  router.get("/api/v1/", (_, res: Response) => {
+    res.status(200);
+    res.send("Server working properly");
+  });
   app.use(cookieParser.default());
   await app.listen(port);
   console.log(`Server running on ${port}`);

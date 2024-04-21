@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { LoginDto } from "src/module/auth/dto/LoginDto";
+import { LoginDto } from "@module/auth/dto/LoginDto";
 import * as authHelper from "./helper/auth.helper";
 import { JwtService } from "@nestjs/jwt";
-import { userSelectType } from "src/db/schema";
+import { userSelectType } from "@db/schema";
 import { ConfigService } from "@nestjs/config";
 import { jwtATConstants, jwtRTConstants } from "@util/constants";
 import { UserRepository } from "@repository/user/user.repository";

@@ -15,6 +15,9 @@
       "@util/*": ["./src/util/*"],
       "@config/*": ["./src/config/*"],
       "@common/*": ["./src/common/*"],
+      "@type/*": ["./src/type/*"],
+      "@db/*": ["./src/db/*"],
+      
     },
     "baseUrl": "./",
     "incremental": true,

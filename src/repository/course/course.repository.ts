@@ -3,8 +3,8 @@ import { FilterCourseDto } from "@module/course/dto/filter-course.dto";
 import { UpdateCourseDto } from "@module/course/dto/update-course.dto";
 import { Inject, Injectable } from "@nestjs/common";
 import { eq, like } from "drizzle-orm";
-import { course } from "src/db/schema";
-import { Drizzle } from "src/type/drizzle.type";
+import { course } from "@db/schema";
+import { Drizzle } from "@type/drizzle.type";
 
 @Injectable()
 export class CourseRepository {

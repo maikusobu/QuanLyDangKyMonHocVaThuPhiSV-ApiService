@@ -1,6 +1,6 @@
 import { Controller, Get } from "@nestjs/common";
 import { TaskScheduleService } from "./taskSchedule.service";
-import { END_POINTS } from "src/util/constants";
+import { END_POINTS } from "@util/constants";
 import { Public } from "@common/decorators/public.decorator";
 const { TASK_SCHEDULE } = END_POINTS;
 

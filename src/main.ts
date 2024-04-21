@@ -30,7 +30,7 @@ async function bootstrap() {
   );
   const server = app.getHttpServer();
   const router = server._events.request._router;
-  router.get("/api/v1/", (_, res: Response) => {
+  router.get("/", (_, res: Response) => {
     res.status(200);
     res.send("Server working properly");
   });

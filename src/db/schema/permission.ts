@@ -1,6 +1,6 @@
 import { pgTable, serial, varchar } from "drizzle-orm/pg-core";
 import { actionEnum } from "./enums";
-import { relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { departmentPermission } from "./departmentPermission";
 
 export const permission = pgTable("permission", {
@@ -12,3 +12,6 @@ export const permission = pgTable("permission", {
 export const permissionRelations = relations(permission, ({ many }) => ({
   departmentPermissions: many(departmentPermission),
 }));
+
+export type SelectPermission = InferSelectModel<typeof permission>;
+export type InsertPermission = InferInsertModel<typeof permission>;

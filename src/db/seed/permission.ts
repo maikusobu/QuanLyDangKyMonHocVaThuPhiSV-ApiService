@@ -1,6 +1,8 @@
+import { InsertPermission } from "@db/schema";
 import { PERMISSIONS } from "../../util/constants";
 import { END_POINTS } from "../../util/constants";
-export const permissionDATA = [
+
+export const permissionData: InsertPermission[] = [
   {
     endpoint: `${END_POINTS.STUDENT.BASE}/${END_POINTS.STUDENT.CREATE}`,
     action: PERMISSIONS.POST,

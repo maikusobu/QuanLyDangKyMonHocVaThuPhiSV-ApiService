@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { student } from "src/db/schema";
+import { student } from "@db/schema";
 import { CreateStudentDto } from "src/module/student/dto/create-student.dto";
-import { Drizzle } from "src/type/drizzle.type";
+import { Drizzle } from "@type/drizzle.type";
 
 @Injectable()
 export class StudentRepository {

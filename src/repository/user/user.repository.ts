@@ -1,8 +1,8 @@
 import { Injectable, Inject } from "@nestjs/common";
 import { eq, and } from "drizzle-orm";
-import type { userInsertType, userSelectType } from "src/db/schema";
-import { user } from "src/db/schema";
-import { Drizzle } from "src/type/drizzle.type";
+import type { userInsertType, userSelectType } from "@db/schema";
+import { user } from "@db/schema";
+import { Drizzle } from "@type/drizzle.type";
 import { PERMISSIONS } from "@util/constants";
 @Injectable()
 export class UserRepository {

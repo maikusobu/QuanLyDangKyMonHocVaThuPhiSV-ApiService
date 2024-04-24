@@ -1,6 +1,6 @@
 import { integer, pgTable, serial, varchar } from "drizzle-orm/pg-core";
 import { roleEnum } from "./enums";
-import { relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { department } from "./department";
 
 export const user = pgTable("user", {
@@ -19,3 +19,6 @@ export const userRelations = relations(user, ({ one }) => ({
     references: [department.id],
   }),
 }));
+
+export type SelectUser = InferSelectModel<typeof user>;
+export type InsertUser = InferInsertModel<typeof user>;

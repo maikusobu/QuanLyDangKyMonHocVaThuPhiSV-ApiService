@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { pgTable, serial, varchar } from "drizzle-orm/pg-core";
 import { user } from "./user";
 import { departmentPermission } from "./departmentPermission";
@@ -12,3 +12,6 @@ export const departmentRelations = relations(department, ({ many }) => ({
   users: many(user),
   departmentPermissions: many(departmentPermission),
 }));
+
+export type SelectDepartment = InferSelectModel<typeof department>;
+export type InsertDepartment = InferInsertModel<typeof department>;

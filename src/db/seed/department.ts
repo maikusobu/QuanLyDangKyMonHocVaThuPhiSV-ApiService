@@ -1,4 +1,6 @@
-export const departmentDATA = [
+import { InsertDepartment } from "@db/schema";
+
+export const departmentData: InsertDepartment[] = [
   {
     name: "Phòng công tác sinh viên",
   },

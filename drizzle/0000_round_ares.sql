@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS "available_course_item" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "course" (
-	"100" varchar NOT NULL,
 	"id" serial PRIMARY KEY NOT NULL,
+	"name" varchar NOT NULL,
 	"number_of_periods" integer NOT NULL,
 	"course_type_id" integer NOT NULL,
 	"faculty_id" integer NOT NULL

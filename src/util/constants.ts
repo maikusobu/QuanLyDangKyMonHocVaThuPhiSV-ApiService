@@ -24,6 +24,14 @@ export const END_POINTS = {
     UPDATE: "/:id",
     DELETE: "/:id",
   },
+  FACULTY: {
+    BASE: "/faculty",
+    GET_ALL: "",
+  },
+  COURSE_TYPE: {
+    BASE: "/course-type",
+    GET_ALL: "",
+  },
 };
 export enum ROLE_NAME {
   ADMIN = "admin",

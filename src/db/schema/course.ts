@@ -6,7 +6,7 @@ import { programItem } from "./programItem";
 
 export const course = pgTable("course", {
   id: serial("id").primaryKey(),
-  name: varchar("100").notNull(),
+  name: varchar("name", { length: 100 }).notNull(),
   numberOfPeriods: integer("number_of_periods").notNull(),
   courseTypeId: integer("course_type_id").notNull(),
   facultyId: integer("faculty_id").notNull(),

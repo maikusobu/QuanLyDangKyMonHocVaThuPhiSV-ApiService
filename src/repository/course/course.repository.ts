@@ -34,7 +34,13 @@ export class CourseRepository {
   }
 
   async findOne(id: number) {
-    return await this.drizzle.select().from(course).where(eq(course.id, id));
+    return await this.drizzle.query.course.findFirst({
+      where: eq(course.id, id),
+      with: {
+        courseType: true,
+        faculty: true,
+      },
+    });
   }
 
   async update(id: number, body: UpdateCourseDto) {

@@ -59,10 +59,14 @@ export class AuthRepository {
     return { accessToken, refreshToken };
   }
   async hasPermission(userId: string, endpoint: string, method: string) {
+    const permission = PERMISSIONS[method as keyof typeof PERMISSIONS];
+    if (!permission) {
+      throw new Error(`Invalid method: ${method}`);
+    }
     return this.userRepository.findPermission(
       Number(userId),
       endpoint,
-      method as PERMISSIONS,
+      permission,
     );
   }
   async signOut(req: Request, res: Response) {

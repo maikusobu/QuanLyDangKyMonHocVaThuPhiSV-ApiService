@@ -4,7 +4,7 @@ import { END_POINTS } from "../../util/constants";
 
 export const permissionData: InsertPermission[] = [
   {
-    endpoint: `${END_POINTS.STUDENT.BASE}/${END_POINTS.STUDENT.CREATE}`,
+    endpoint: `${END_POINTS.STUDENT.BASE}`,
     action: PERMISSIONS.POST,
   },
   {

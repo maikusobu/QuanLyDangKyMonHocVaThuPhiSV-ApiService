@@ -3,6 +3,7 @@ import { ScheduleModule } from "@nestjs/schedule";
 import { ConfigModule } from "@nestjs/config";
 import { DrizzleModule } from "@module/setupModule/drizzle/drizzle.module";
 import { RepositoryModule } from "@module/setupModule/repository/repository.module";
+import { MajorModule } from "./module/major/major.module";
 import configuration from "./config/configuration";
 import modules from "./module";
 @Module({
@@ -16,6 +17,7 @@ import modules from "./module";
     DrizzleModule.forRoot({ isGlobal: true }),
     RepositoryModule.forRoot({ isGlobal: true }),
     ...modules,
+    MajorModule,
   ],
 })
 export class AppModule {}

@@ -11,20 +11,18 @@ export class StudentService {
     return await this.studentRepository.createStudent(createStudentDto);
   }
 
-  findAll() {
-    return `This action returns all student`;
+  async findFilteredStudentByNameOrByMSSV(name?: string, mssv?: string) {
+    return this.studentRepository.findFilteredStudentByNameOrByMSSV(name, mssv);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} student`;
+  async findOne(id: number) {
+    return this.studentRepository.findStudentById(id);
   }
 
-  update(id: number, updateStudentDto: UpdateStudentDto) {
-    console.log("updateStudentDto", updateStudentDto);
-    return `This action updates a #${id} student`;
+  async update(id: number, updateStudentDto: UpdateStudentDto) {
+    return this.studentRepository.updateStudentById(id, updateStudentDto);
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} student`;
+  async delete(id: number) {
+    return this.studentRepository.deleteStudentById(id);
   }
 }

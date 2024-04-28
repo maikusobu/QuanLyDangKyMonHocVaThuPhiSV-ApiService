@@ -12,9 +12,18 @@ export const END_POINTS = {
     LOGOUT: "/logout",
     REFRESH: "/refresh",
   },
+  PROVINCE: {
+    BASE: "/province",
+    GET_ALL_DISTRICT: "/district/:provinceId",
+  },
+  PRIORITY: {
+    BASE: "/priority",
+  },
   STUDENT: {
     BASE: "/student",
-    CREATE: "",
+    GET_ONE: "/:id",
+    UPDATE: "/:id",
+    DELETE: "/:id",
   },
   COURSE: {
     BASE: "/course",
@@ -31,6 +40,9 @@ export const END_POINTS = {
   COURSE_TYPE: {
     BASE: "/course-type",
     GET_ALL: "",
+  },
+  MAJOR: {
+    BASE: "/major",
   },
 };
 export enum ROLE_NAME {

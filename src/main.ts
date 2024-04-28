@@ -7,6 +7,7 @@ import { AtGuard } from "@common/guards/at.guard";
 import { PermissionGuard } from "@common/guards/permission.guard";
 import { AuthRepository } from "@repository/auth/auth.repostiory";
 import { Response } from "express";
+import helmet from "helmet";
 import * as cookieParser from "cookie-parser";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,19 +16,22 @@ async function bootstrap() {
   const port = configService.get<number>("port");
   const env = configService.get<string>("env");
   const jwt = configService.get<string>("jwt_access_secret");
+
   app.enableCors({
     origin: true,
     credentials: true,
   });
-  app.useGlobalGuards(new AtGuard(reflector));
-  app.useGlobalGuards(new PermissionGuard(reflector, app.get(AuthRepository)));
+  app.use(helmet());
+  // app.useGlobalGuards(new AtGuard(reflector));
+  // app.useGlobalGuards(new PermissionGuard(reflector, app.get(AuthRepository)));
   app.setGlobalPrefix(END_POINTS.BASE);
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
       transform: true,
+      transformOptions: { enableImplicitConversion: true },
     }),
   );
+
   const server = app.getHttpServer();
   const router = server._events.request._router;
   router.get("/", (_, res: Response) => {

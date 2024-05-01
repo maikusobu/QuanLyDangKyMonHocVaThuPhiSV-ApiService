@@ -59,9 +59,9 @@ export enum PERMISSIONS {
 }
 export const jwtRTConstants = {
   stategy: "jwt-refresh-strategy",
-  liveTimeAt: "1d",
+  liveTimeAt: "7d",
 };
 export const jwtATConstants = {
   stategy: "jwt-access-strategy",
-  liveTimeAt: "1h",
+  liveTimeAt: "7d",
 };

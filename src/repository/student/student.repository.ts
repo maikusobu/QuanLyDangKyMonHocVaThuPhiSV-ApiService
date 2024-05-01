@@ -51,7 +51,9 @@ export class StudentRepository {
       .where(eq(student.id, id))
       .returning();
   }
-  async findFilteredStudentByNameOrByMSSV(name = "", mssv = "") {
+  async findFilteredStudentByNameOrByMSSV(name = "", mssv = "", page = 1) {
+    const pageSize = 20;
+
     const students = await this.drizzle.query.student.findMany({
       with: {
         major: {
@@ -66,8 +68,10 @@ export class StudentRepository {
         },
         priority: true,
       },
-    });
 
+      limit: pageSize,
+      offset: (page - 1) * pageSize,
+    });
     if (name !== "" && mssv === "") {
       console.log("name", name);
       return students.filter((student) =>
@@ -81,6 +85,7 @@ export class StudentRepository {
         student.id.toString().includes(String(mssv)),
       );
     }
+
     return students;
   }
 

@@ -27,8 +27,13 @@ export class StudentController {
   findAll(
     @Optional() @Query("name") name: string,
     @Optional() @Query("mssv") mssv: string,
+    @Query("page") page: number,
   ) {
-    return this.studentService.findFilteredStudentByNameOrByMSSV(name, mssv);
+    return this.studentService.findFilteredStudentByNameOrByMSSV(
+      name,
+      mssv,
+      page,
+    );
   }
 
   @Get(END_POINTS.STUDENT.GET_ONE)

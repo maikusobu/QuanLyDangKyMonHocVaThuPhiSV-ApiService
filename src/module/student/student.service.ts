@@ -11,8 +11,16 @@ export class StudentService {
     return await this.studentRepository.createStudent(createStudentDto);
   }
 
-  async findFilteredStudentByNameOrByMSSV(name?: string, mssv?: string) {
-    return this.studentRepository.findFilteredStudentByNameOrByMSSV(name, mssv);
+  async findFilteredStudentByNameOrByMSSV(
+    name?: string,
+    mssv?: string,
+    page?: number,
+  ) {
+    return this.studentRepository.findFilteredStudentByNameOrByMSSV(
+      name,
+      mssv,
+      page,
+    );
   }
 
   async findOne(id: number) {

@@ -33,6 +33,14 @@ export const END_POINTS = {
     UPDATE: "/:id",
     DELETE: "/:id",
   },
+  COURSE_REGISTRATION: {
+    BASE: "/course-registration",
+    CREATE: "",
+    GET_ALL: "",
+    GET_ONE: "/:id",
+    UPDATE: "/:id",
+    DELETE: "/:id",
+  },
   FACULTY: {
     BASE: "/faculty",
     GET_ALL: "",

@@ -11,7 +11,6 @@ import {
 } from "@nestjs/common";
 import { StudentService } from "./student.service";
 import { CreateStudentDto } from "./dto/create-student.dto";
-import { UpdateStudentDto } from "./dto/update-student.dto";
 import { END_POINTS } from "@util/constants";
 import { Public } from "@common/decorators/public.decorator";
 @Controller(END_POINTS.STUDENT.BASE)
@@ -37,16 +36,17 @@ export class StudentController {
   }
 
   @Get(END_POINTS.STUDENT.GET_ONE)
-  findOne(@Param("id") id: string) {
-    return this.studentService.findOne(+id);
+  findOne(@Param("id") id: number) {
+    return this.studentService.findOne(id);
   }
 
   @Patch(END_POINTS.STUDENT.UPDATE)
-  update(@Param("id") id: string, @Body() updateStudentDto: UpdateStudentDto) {
-    return this.studentService.update(+id, updateStudentDto);
+  update(@Param("id") id: number, @Body() updateStudentDto: CreateStudentDto) {
+    console.log(id, updateStudentDto);
+    return this.studentService.update(id, updateStudentDto);
   }
   @Delete(END_POINTS.STUDENT.DELETE)
-  remove(@Param("id") id: string) {
-    return this.studentService.delete(+id);
+  remove(@Param("id") id: number) {
+    return this.studentService.delete(id);
   }
 }

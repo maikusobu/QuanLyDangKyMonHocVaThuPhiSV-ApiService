@@ -11,6 +11,7 @@ export const student = pgTable("student", {
   name: varchar("name", { length: 100 }).notNull(),
   dateOfBirth: date("date_of_birth").notNull(),
   gender: genderEnum("gender").notNull(),
+  mssv: varchar("mssv").unique(),
   majorId: integer("major_id").notNull(),
   address: varchar("address", { length: 255 }).notNull(),
   districtId: integer("district_id").notNull(),

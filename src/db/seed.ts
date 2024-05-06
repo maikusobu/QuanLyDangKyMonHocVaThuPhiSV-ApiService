@@ -3,7 +3,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { faker } from "@faker-js/faker/locale/vi";
 import { district, student } from "./schema";
-
+import { sql } from "drizzle-orm";
 const seed = async () => {
   const client = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -20,6 +20,10 @@ const seed = async () => {
     .limit(1)
     .offset(Math.floor(Math.random() * 644));
 
+  await db.execute(sql`TRUNCATE TABLE student RESTART IDENTITY`);
+
+  await db.execute(sql`ALTER SEQUENCE student_id_seq RESTART WITH 100`);
+
   const daStudent = [];
   for (let i = 0; i < 100; i++) {
     daStudent.push({
@@ -33,5 +37,6 @@ const seed = async () => {
     });
   }
   await db.insert(student).values(daStudent).execute();
+  await db.execute(sql`UPDATE student SET mssv = id::text`);
 };
 seed();

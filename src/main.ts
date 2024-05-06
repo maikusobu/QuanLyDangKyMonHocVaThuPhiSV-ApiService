@@ -28,8 +28,8 @@ async function bootstrap() {
   });
   app.use(helmet());
   app.use(cookieParser.default());
-  app.useGlobalGuards(new AtGuard(reflector));
-  app.useGlobalGuards(new PermissionGuard(reflector, app.get(AuthRepository)));
+  // app.useGlobalGuards(new AtGuard(reflector));
+  // app.useGlobalGuards(new PermissionGuard(reflector, app.get(AuthRepository)));
   app.setGlobalPrefix(END_POINTS.BASE);
   app.useGlobalPipes(
     new ValidationPipe({

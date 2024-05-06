@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { CreateStudentDto } from "./dto/create-student.dto";
-import { UpdateStudentDto } from "./dto/update-student.dto";
 import { StudentRepository } from "@repository/student/student.repository";
 
 @Injectable()
@@ -27,7 +26,7 @@ export class StudentService {
     return this.studentRepository.findStudentById(id);
   }
 
-  async update(id: number, updateStudentDto: UpdateStudentDto) {
+  async update(id: number, updateStudentDto: CreateStudentDto) {
     return this.studentRepository.updateStudentById(id, updateStudentDto);
   }
   async delete(id: number) {

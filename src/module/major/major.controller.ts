@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param, ParseIntPipe } from "@nestjs/common";
 import { MajorService } from "./major.service";
 import { END_POINTS } from "@util/constants";
 
@@ -8,5 +8,10 @@ export class MajorController {
   @Get()
   findAll() {
     return this.majorService.findAll();
+  }
+
+  @Get(END_POINTS.MAJOR.GET_PROGRAM)
+  findProgramByMajorId(@Param("id", ParseIntPipe) id: number) {
+    return this.majorService.findProgramByMajorId(id);
   }
 }

@@ -7,4 +7,17 @@ export class MajorRepository {
   async getAllMajor() {
     return await this.drizzle.select().from(major);
   }
+  async findProgramByMajorId(id: number) {
+    return await this.drizzle.query.program.findFirst({
+      where: ({ majorId }, { eq }) => eq(majorId, id),
+      with: {
+        major: true,
+        programItems: {
+          with: {
+            course: true,
+          },
+        },
+      },
+    });
+  }
 }

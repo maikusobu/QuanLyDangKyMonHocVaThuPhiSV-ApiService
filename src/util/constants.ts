@@ -43,6 +43,7 @@ export const END_POINTS = {
   },
   MAJOR: {
     BASE: "/major",
+    GET_PROGRAM: "/:id/program",
   },
 };
 export enum ROLE_NAME {

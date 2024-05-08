@@ -45,6 +45,10 @@ export const END_POINTS = {
     BASE: "/major",
     GET_PROGRAM: "/:id/program",
   },
+  PROGRAM_ITEM: {
+    BASE: "/program-item",
+    DELETE: "/:id",
+  },
 };
 export enum ROLE_NAME {
   ADMIN = "admin",

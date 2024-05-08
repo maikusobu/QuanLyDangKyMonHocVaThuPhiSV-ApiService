@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { student } from "@db/schema";
 import { CreateStudentDto } from "src/module/student/dto/create-student.dto";
 import { Drizzle } from "@type/drizzle.type";
-import { eq } from "drizzle-orm";
+import { eq, or, like, ilike } from "drizzle-orm";
 
 import { ProvinceDistrictRepository } from "@repository/province/province.repository";
 
@@ -77,11 +77,22 @@ export class StudentRepository {
         },
         priority: true,
       },
-      where: (students, { or, ilike }) => {
-        return or(
-          ilike(students.name, `%${name}%`),
-          ilike(student.mssv, `%${mssv}%`),
-        );
+      where: (students) => {
+        if (name === "" && mssv !== "") {
+          return like(students.mssv, `%${mssv}%`);
+        }
+        if (name !== "" && mssv === "") {
+          return ilike(students.name, `%${name}%`);
+        }
+        if (name !== "" && mssv !== "") {
+          return or(
+            ilike(students.name, `%${name}%`),
+            like(students.mssv, `%${mssv}%`),
+          );
+        }
+        if (name === "" && mssv === "") {
+          return;
+        }
       },
       limit: pageSize,
       offset: (page - 1) * pageSize,

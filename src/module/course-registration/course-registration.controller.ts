@@ -1,15 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, Delete } from "@nestjs/common";
 import { CourseRegistrationService } from "./course-registration.service";
 import { CreateCourseRegistrationFormDto } from "./dto/create-course-registration-form.dto";
-import { UpdateCourseRegistrationDto } from "./dto/update-course-registration.dto";
 import { END_POINTS } from "@util/constants";
 
 @Controller("course-registration")
@@ -27,7 +18,7 @@ export class CourseRegistrationController {
     );
   }
 
-  @Get()
+  @Get(END_POINTS.COURSE_REGISTRATION.GET_ALL)
   findAll() {
     return this.courseRegistrationService.findAll();
   }
@@ -37,16 +28,16 @@ export class CourseRegistrationController {
     return this.courseRegistrationService.findOne(+id);
   }
 
-  @Patch(":id")
-  update(
-    @Param("id") id: string,
-    @Body() updateCourseRegistrationDto: UpdateCourseRegistrationDto,
-  ) {
-    return this.courseRegistrationService.update(
-      +id,
-      updateCourseRegistrationDto,
-    );
-  }
+  // @Patch(":id")
+  // update(
+  //   @Param("id") id: string,
+  //   @Body() updateCourseRegistrationDto: UpdateCourseRegistrationDto,
+  // ) {
+  //   return this.courseRegistrationService.update(
+  //     +id,
+  //     updateCourseRegistrationDto,
+  //   );
+  // }
 
   @Delete(":id")
   remove(@Param("id") id: string) {

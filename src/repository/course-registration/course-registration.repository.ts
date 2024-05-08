@@ -22,4 +22,8 @@ export class CourseRegistrationRepository {
       .values(createCourseRegistrationItemDto)
       .returning();
   }
+
+  async findAll() {
+    throw new Error("Method not implemented.");
+  }
 }

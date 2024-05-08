@@ -38,7 +38,7 @@ export class CourseRegistrationService {
   }
 
   findAll() {
-    return `This action returns all courseRegistration`;
+    return this.courseRegistrationRepository.findAll();
   }
 
   findOne(id: number) {

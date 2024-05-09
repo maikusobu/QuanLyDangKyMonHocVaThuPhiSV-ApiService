@@ -8,6 +8,7 @@ import { PriorityModule } from "./priority/priority.module";
 import { ProvinceModule } from "./province/province.module";
 import { MajorModule } from "./major/major.module";
 import { ProgramItemModule } from "./program-item/program-item.module";
+import { CourseOpenModule } from "./course-open/course-open.module";
 const modules = [
   TaskScheduleModule,
   AuthModule,
@@ -19,6 +20,7 @@ const modules = [
   ProvinceModule,
   MajorModule,
   ProgramItemModule,
+  CourseOpenModule,
 ];
 
 export default modules;

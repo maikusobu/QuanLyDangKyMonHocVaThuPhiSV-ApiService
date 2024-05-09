@@ -1,7 +1,7 @@
 import { integer, pgTable, serial, varchar } from "drizzle-orm/pg-core";
 import { program } from "./program";
 import { course } from "./course";
-import { relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { termEnum } from "./enums";
 
 export const programItem = pgTable("program_item", {
@@ -22,3 +22,6 @@ export const programItemRelations = relations(programItem, ({ one }) => ({
     references: [course.id],
   }),
 }));
+
+export type SelectProgramItem = InferSelectModel<typeof programItem>;
+export type InsertProgramItem = InferInsertModel<typeof programItem>;

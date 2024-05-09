@@ -8,6 +8,17 @@ import { and, eq } from "drizzle-orm";
 export class CourseOpenTermRepository {
   constructor(@Inject("DRIZZLE") private drizzle: Drizzle) {}
 
+  async get(year: number, term: TERM) {
+    const termYear = await this.drizzle.query.availableCourse.findFirst({
+      where: and(
+        eq(availableCourse.term, term),
+        eq(availableCourse.year, year),
+      ),
+    });
+
+    return termYear;
+  }
+
   async createIfNotExists(term: TERM, year: number) {
     const checkForExistence =
       await this.drizzle.query.availableCourse.findFirst({

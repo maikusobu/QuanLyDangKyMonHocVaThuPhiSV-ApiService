@@ -27,4 +27,10 @@ export class CourseOpenRepository {
 
     return courseOpen[0];
   }
+
+  findAllOneTerm(termYearID: number) {
+    return this.drizzle.query.availableCourseItem.findMany({
+      where: eq(availableCourseItem.availableCourseId, termYearID),
+    });
+  }
 }

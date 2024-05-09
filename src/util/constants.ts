@@ -36,7 +36,7 @@ export const END_POINTS = {
   COURSE_OPEN: {
     BASE: "/course-open",
     CREATE: "",
-    GET_ALL: "",
+    GET_ALL_ONE_TERM: "",
     UPDATE: "/:id",
     DELETE: "/:id",
   },

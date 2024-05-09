@@ -47,9 +47,16 @@ export const END_POINTS = {
   },
   PROGRAM_ITEM: {
     BASE: "/program-item",
+    CREATE: "",
     DELETE: "/:id",
+    UPDATE: "/:id",
   },
 };
+export enum TERM {
+  FIRST = "first",
+  SECOND = "second",
+  THIRD = "third",
+}
 export enum ROLE_NAME {
   ADMIN = "admin",
   EMPLOYEE = "employee",

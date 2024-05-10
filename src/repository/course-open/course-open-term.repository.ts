@@ -1,4 +1,5 @@
 import { availableCourse } from "@db/schema";
+import { FindCourseOpenDto } from "@module/course-open/dto/find-course-open.dto";
 import { Inject, Injectable } from "@nestjs/common";
 import { Drizzle } from "@type/drizzle.type";
 import { TERM } from "@util/constants";
@@ -8,11 +9,11 @@ import { and, eq } from "drizzle-orm";
 export class CourseOpenTermRepository {
   constructor(@Inject("DRIZZLE") private drizzle: Drizzle) {}
 
-  async get(year: number, term: TERM) {
+  async get(findCourseOpenDto: FindCourseOpenDto) {
     const termYear = await this.drizzle.query.availableCourse.findFirst({
       where: and(
-        eq(availableCourse.term, term),
-        eq(availableCourse.year, year),
+        eq(availableCourse.term, findCourseOpenDto.term),
+        eq(availableCourse.year, findCourseOpenDto.year),
       ),
     });
 

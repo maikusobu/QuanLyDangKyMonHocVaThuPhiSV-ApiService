@@ -2,8 +2,9 @@ import { HttpException, Injectable } from "@nestjs/common";
 import { CreateCourseOpenDto } from "./dto/create-course-open.dto";
 import { CourseOpenRepository } from "@repository/course-open/course-open.repository";
 import { CourseOpenTermRepository } from "@repository/course-open/course-open-term.repository";
-import { TERM } from "@util/constants";
 import { CourseRepository } from "@repository/course/course.repository";
+import { FindCourseOpenDto } from "./dto/find-course-open.dto";
+import { DeleteCourseOpenDto } from "./dto/delete-course-open.dto";
 
 @Injectable()
 export class CourseOpenService {
@@ -33,15 +34,33 @@ export class CourseOpenService {
     }
   }
 
-  async findAllOneTerm(year: number, term: TERM) {
+  async findAllOneTerm(findCourseOpenDto: FindCourseOpenDto) {
     // Get the termYear
-    const termYearID = (await this.courseOpenTermRepository.get(year, term)).id;
+    const termYearID = (
+      await this.courseOpenTermRepository.get(findCourseOpenDto)
+    ).id;
     // Get all courses for that term
     const coursesID =
       await this.courseOpenRepository.findAllOneTerm(termYearID);
+    // Create a lookup object from coursesID
+    const coursesIDLookup = coursesID.reduce((lookup, course) => {
+      lookup[course.courseId] = course.availableCourseId;
+      return lookup;
+    }, {});
+    // Get all courses
     const courses = await this.courseRepository.findByIds(
       coursesID.map((c) => c.courseId),
     );
-    return courses;
+    // Merge availableCourseId into courses
+    const mergedCourses = courses.map((course) => ({
+      ...course,
+      availableCourseId: coursesIDLookup[course.id],
+    }));
+
+    return mergedCourses;
+  }
+
+  delete(deleteCourseOpenDto: DeleteCourseOpenDto) {
+    return this.courseOpenRepository.delete(deleteCourseOpenDto);
   }
 }

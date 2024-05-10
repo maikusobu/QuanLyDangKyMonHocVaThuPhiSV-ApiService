@@ -1,4 +1,5 @@
 import { availableCourseItem, InsertAvailableCourseItem } from "@db/schema";
+import { DeleteCourseOpenDto } from "@module/course-open/dto/delete-course-open.dto";
 import { Inject, Injectable } from "@nestjs/common";
 import { Drizzle } from "@type/drizzle.type";
 import { and, eq } from "drizzle-orm";
@@ -28,9 +29,24 @@ export class CourseOpenRepository {
     return courseOpen[0];
   }
 
-  findAllOneTerm(termYearID: number) {
-    return this.drizzle.query.availableCourseItem.findMany({
+  async findAllOneTerm(termYearID: number) {
+    return await this.drizzle.query.availableCourseItem.findMany({
       where: eq(availableCourseItem.availableCourseId, termYearID),
     });
+  }
+
+  async delete(deleteCourseOpenDto: DeleteCourseOpenDto) {
+    return this.drizzle
+      .delete(availableCourseItem)
+      .where(
+        and(
+          eq(availableCourseItem.courseId, deleteCourseOpenDto.courseId),
+          eq(
+            availableCourseItem.availableCourseId,
+            deleteCourseOpenDto.availableCourseId,
+          ),
+        ),
+      )
+      .returning();
   }
 }

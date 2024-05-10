@@ -12,13 +12,13 @@ import { CreateCourseRegistrationFormDto } from "./dto/create-course-registratio
 import { END_POINTS } from "@util/constants";
 import { GetAllCourseRegistrationDto } from "./dto/get-all-course-registration.dto";
 
-@Controller("course-registration")
+@Controller(END_POINTS.COURSE_REGISTRATION.BASE)
 export class CourseRegistrationController {
   constructor(
     private readonly courseRegistrationService: CourseRegistrationService,
   ) {}
 
-  @Post(END_POINTS.COURSE_REGISTRATION.BASE)
+  @Post(END_POINTS.COURSE_REGISTRATION.CREATE)
   create(
     @Body() createCourseRegistrationFormDto: CreateCourseRegistrationFormDto,
   ) {

@@ -5,7 +5,7 @@ import { END_POINTS } from "@util/constants";
 @Controller(END_POINTS.MAJOR.BASE)
 export class MajorController {
   constructor(private readonly majorService: MajorService) {}
-  @Get()
+  @Get(END_POINTS.MAJOR.GET_ALL)
   findAll() {
     return this.majorService.findAll();
   }

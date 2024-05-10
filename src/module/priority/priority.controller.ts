@@ -6,7 +6,7 @@ import { END_POINTS } from "@util/constants";
 export class PriorityController {
   constructor(private readonly priorityService: PriorityService) {}
 
-  @Get()
+  @Get(END_POINTS.PRIORITY.GET_ALL)
   findAll() {
     return this.priorityService.findAll();
   }

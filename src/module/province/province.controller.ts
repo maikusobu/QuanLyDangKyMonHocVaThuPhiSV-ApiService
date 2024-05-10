@@ -5,7 +5,7 @@ import { END_POINTS } from "@util/constants";
 @Controller(END_POINTS.PROVINCE.BASE)
 export class ProvinceController {
   constructor(private readonly provinceService: ProvinceService) {}
-  @Get()
+  @Get(END_POINTS.PROVINCE.GET_ALL)
   async findAllProvince() {
     return this.provinceService.findAllProvince();
   }

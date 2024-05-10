@@ -14,13 +14,17 @@ export const END_POINTS = {
   },
   PROVINCE: {
     BASE: "/province",
+    GET_ALL: "",
     GET_ALL_DISTRICT: "/district/:provinceId",
   },
   PRIORITY: {
     BASE: "/priority",
+    GET_ALL: "",
   },
   STUDENT: {
     BASE: "/student",
+    CREATE: "",
+    GET_ALL: "",
     GET_ONE: "/:id",
     UPDATE: "/:id",
     DELETE: "/:id",
@@ -66,6 +70,7 @@ export const END_POINTS = {
   },
   MAJOR: {
     BASE: "/major",
+    GET_ALL: "",
     GET_PROGRAM: "/:id/program",
   },
   PROGRAM_ITEM: {

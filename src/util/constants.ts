@@ -51,8 +51,8 @@ export const END_POINTS = {
   PAYMENT: {
     BASE: "/payment",
     CREATE: "",
-    GET_ALL: "",
-    GET_ONE: "/:id",
+    GET_TUITION: "",
+    GET_PAYMENT: "history",
     UPDATE: "/:id",
     DELETE: "/:id",
   },

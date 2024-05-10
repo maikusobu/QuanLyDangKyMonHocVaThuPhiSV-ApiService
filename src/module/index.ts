@@ -10,6 +10,7 @@ import { MajorModule } from "./major/major.module";
 import { ProgramItemModule } from "./program-item/program-item.module";
 import { CourseOpenModule } from "./course-open/course-open.module";
 import { CourseRegistrationModule } from "./course-registration/course-registration.module";
+import { PaymentModule } from "./payment/payment.module";
 const modules = [
   TaskScheduleModule,
   AuthModule,
@@ -23,6 +24,7 @@ const modules = [
   ProgramItemModule,
   CourseOpenModule,
   CourseRegistrationModule,
+  PaymentModule,
 ];
 
 export default modules;

@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { InferInsertModel, relations } from "drizzle-orm";
 import { integer, pgTable, primaryKey } from "drizzle-orm/pg-core";
 import { course } from "./course";
 import { availableCourse } from "./availableCourse";
@@ -27,3 +27,7 @@ export const availableCourseItemRelations = relations(
     }),
   }),
 );
+
+export type InsertAvailableCourseItem = InferInsertModel<
+  typeof availableCourseItem
+>;

@@ -17,7 +17,7 @@ import { Public } from "@common/decorators/public.decorator";
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
   @Public()
-  @Post()
+  @Post(END_POINTS.STUDENT.CREATE)
   create(@Body() createStudentDto: CreateStudentDto) {
     return this.studentService.create(createStudentDto);
   }

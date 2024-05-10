@@ -1,23 +1,24 @@
 import { InsertProgramItem } from "@db/schema";
 import { TERM } from "@util/constants";
-import { Transform } from "class-transformer";
 import {
   IsEnum,
   IsInt,
+  IsNotEmpty,
   IsOptional,
   IsString,
   MaxLength,
 } from "class-validator";
 
 export class CreateProgramItemDto implements InsertProgramItem {
-  @Transform(({ value }) => parseInt(value))
+  @IsNotEmpty({ message: "programId Chương trình học không được để trống" })
   @IsInt()
   programId: number;
 
-  @Transform(({ value }) => parseInt(value))
+  @IsNotEmpty({ message: "courseId Môn học không được để trống" })
   @IsInt()
   courseId: number;
 
+  @IsNotEmpty({ message: "term Học kỳ không được để trống" })
   @IsEnum(TERM)
   term: TERM;
 

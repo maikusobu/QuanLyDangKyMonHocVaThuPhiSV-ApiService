@@ -3,12 +3,14 @@ import { CreateCourseOpenDto } from "./dto/create-course-open.dto";
 import { CourseOpenRepository } from "@repository/course-open/course-open.repository";
 import { CourseOpenTermRepository } from "@repository/course-open/course-open-term.repository";
 import { TERM } from "@util/constants";
+import { CourseRepository } from "@repository/course/course.repository";
 
 @Injectable()
 export class CourseOpenService {
   constructor(
     private courseOpenRepository: CourseOpenRepository,
     private courseOpenTermRepository: CourseOpenTermRepository,
+    private courseRepository: CourseRepository,
   ) {}
 
   async create(createCourseOpenDto: CreateCourseOpenDto) {
@@ -35,7 +37,11 @@ export class CourseOpenService {
     // Get the termYear
     const termYearID = (await this.courseOpenTermRepository.get(year, term)).id;
     // Get all courses for that term
-    const courses = await this.courseOpenRepository.findAllOneTerm(termYearID);
+    const coursesID =
+      await this.courseOpenRepository.findAllOneTerm(termYearID);
+    const courses = await this.courseRepository.findByIds(
+      coursesID.map((c) => c.courseId),
+    );
     return courses;
   }
 }

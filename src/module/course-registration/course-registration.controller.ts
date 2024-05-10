@@ -1,7 +1,16 @@
-import { Controller, Get, Post, Body, Param, Delete } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+} from "@nestjs/common";
 import { CourseRegistrationService } from "./course-registration.service";
 import { CreateCourseRegistrationFormDto } from "./dto/create-course-registration-form.dto";
 import { END_POINTS } from "@util/constants";
+import { GetAllCourseRegistrationDto } from "./dto/get-all-course-registration.dto";
 
 @Controller("course-registration")
 export class CourseRegistrationController {
@@ -19,8 +28,8 @@ export class CourseRegistrationController {
   }
 
   @Get(END_POINTS.COURSE_REGISTRATION.GET_ALL)
-  findAll() {
-    return this.courseRegistrationService.findAll();
+  findAll(@Query() getAllCourseRegistrationDto: GetAllCourseRegistrationDto) {
+    return this.courseRegistrationService.findAll(getAllCourseRegistrationDto);
   }
 
   @Get(":id")

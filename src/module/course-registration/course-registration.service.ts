@@ -4,6 +4,7 @@ import { CourseRegistrationRepository } from "@repository/course-registration/co
 import { CreateCourseRegistrationDto } from "./dto/create-course-registration.dto";
 import { CreateCourseRegistrationItemDto } from "./dto/create-course-registration-item-dto";
 import { TuitionRepository } from "@repository/tuition/tuition.repository";
+import { GetAllCourseRegistrationDto } from "./dto/get-all-course-registration.dto";
 
 @Injectable()
 export class CourseRegistrationService {
@@ -44,8 +45,11 @@ export class CourseRegistrationService {
     return newCourseRegistration[0];
   }
 
-  findAll() {
-    return this.courseRegistrationRepository.findAll();
+  findAll(getAllCourseRegistrationDto: GetAllCourseRegistrationDto) {
+    return this.courseRegistrationRepository.findAll(
+      getAllCourseRegistrationDto.year,
+      getAllCourseRegistrationDto.term,
+    );
   }
 
   findOne(id: number) {

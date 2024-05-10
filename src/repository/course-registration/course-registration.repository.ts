@@ -3,6 +3,8 @@ import { CreateCourseRegistrationItemDto } from "@module/course-registration/dto
 import { CreateCourseRegistrationDto } from "@module/course-registration/dto/create-course-registration.dto";
 import { Inject, Injectable } from "@nestjs/common";
 import { Drizzle } from "@type/drizzle.type";
+import { TERM } from "@util/constants";
+import { and, eq } from "drizzle-orm";
 
 @Injectable()
 export class CourseRegistrationRepository {
@@ -23,7 +25,24 @@ export class CourseRegistrationRepository {
       .returning();
   }
 
-  async findAll() {
-    throw new Error("Method not implemented.");
+  async findAll(year: number, term: TERM) {
+    const registration = await this.drizzle.query.courseRegistration.findMany({
+      where: and(
+        eq(courseRegistration.year, year),
+        eq(courseRegistration.term, term),
+      ),
+      columns: {
+        studentId: false,
+      },
+      with: {
+        student: {
+          columns: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+    return registration;
   }
 }

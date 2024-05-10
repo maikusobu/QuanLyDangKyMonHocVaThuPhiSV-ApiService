@@ -9,6 +9,7 @@ import { ProvinceModule } from "./province/province.module";
 import { MajorModule } from "./major/major.module";
 import { ProgramItemModule } from "./program-item/program-item.module";
 import { CourseOpenModule } from "./course-open/course-open.module";
+import { CourseRegistrationModule } from "./course-registration/course-registration.module";
 const modules = [
   TaskScheduleModule,
   AuthModule,
@@ -21,6 +22,7 @@ const modules = [
   MajorModule,
   ProgramItemModule,
   CourseOpenModule,
+  CourseRegistrationModule,
 ];
 
 export default modules;

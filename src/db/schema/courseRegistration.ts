@@ -2,7 +2,7 @@ import { date, integer, pgTable, serial } from "drizzle-orm/pg-core";
 import { termEnum } from "./enums";
 import { student } from "./student";
 import { courseRegistrationItem } from "./courseRegistrationItem";
-import { relations } from "drizzle-orm";
+import { InferInsertModel, relations } from "drizzle-orm";
 import { tuition } from "./tuition";
 
 export const courseRegistration = pgTable("course_registration", {
@@ -24,3 +24,7 @@ export const courseRegistrationRelations = relations(
     courseRegistrationItems: many(courseRegistrationItem),
   }),
 );
+
+export type InsertCourseRegistration = InferInsertModel<
+  typeof courseRegistration
+>;

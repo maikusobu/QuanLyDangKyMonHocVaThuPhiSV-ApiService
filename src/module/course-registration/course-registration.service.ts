@@ -3,11 +3,13 @@ import { CreateCourseRegistrationFormDto } from "./dto/create-course-registratio
 import { CourseRegistrationRepository } from "@repository/course-registration/course-registration.repository";
 import { CreateCourseRegistrationDto } from "./dto/create-course-registration.dto";
 import { CreateCourseRegistrationItemDto } from "./dto/create-course-registration-item-dto";
+import { TuitionRepository } from "@repository/tuition/tuition.repository";
 
 @Injectable()
 export class CourseRegistrationService {
   constructor(
     private readonly courseRegistrationRepository: CourseRegistrationRepository,
+    private readonly tuitionRepository: TuitionRepository,
   ) {}
 
   async create(
@@ -34,7 +36,12 @@ export class CourseRegistrationService {
         createCourseRegistrationItemDto,
       );
     }
-    return newCourseRegistration;
+    // Background task to compute course registration fee
+    this.computeTuition(newCourseRegistration[0].id).catch((err) => {
+      console.error("Error computing tuition:", err);
+    });
+
+    return newCourseRegistration[0];
   }
 
   findAll() {
@@ -51,5 +58,12 @@ export class CourseRegistrationService {
 
   remove(id: number) {
     return `This action removes a #${id} courseRegistration`;
+  }
+
+  private async computeTuition(courseRegistrationId: number) {
+    console.log("Computing tuition for registration ID:", courseRegistrationId);
+    // simulate long computation
+    await this.tuitionRepository.computeTuition(courseRegistrationId);
+    console.log("Tuition computed");
   }
 }

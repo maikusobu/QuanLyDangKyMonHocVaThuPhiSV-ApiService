@@ -6,6 +6,8 @@ import { StudentRepository } from "@repository/student/student.repository";
 import { ProvinceDistrictRepository } from "@repository/province/province.repository";
 import { MajorRepository } from "@repository/major/major.repository";
 import { CourseRegistrationRepository } from "@repository/course-registration/course-registration.repository";
+import { TuitionPaymentRepository } from "@repository/tuition-payment/tuition-payment-repository";
+import { TuitionRepository } from "@repository/tuition/tuition.repository";
 @Module({})
 export class RepositoryModule {
   static forRoot({ isGlobal = false }): DynamicModule {
@@ -20,6 +22,8 @@ export class RepositoryModule {
         ProvinceDistrictRepository,
         MajorRepository,
         CourseRegistrationRepository,
+        TuitionPaymentRepository,
+        TuitionRepository,
       ],
       exports: [
         UserRepository,
@@ -29,6 +33,8 @@ export class RepositoryModule {
         ProvinceDistrictRepository,
         MajorRepository,
         CourseRegistrationRepository,
+        TuitionPaymentRepository,
+        TuitionRepository,
       ],
     };
   }

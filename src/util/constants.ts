@@ -33,6 +33,13 @@ export const END_POINTS = {
     UPDATE: "/:id",
     DELETE: "/:id",
   },
+  COURSE_OPEN: {
+    BASE: "/course-open",
+    CREATE: "",
+    GET_ALL_ONE_TERM: "",
+    UPDATE: "/:id",
+    DELETE: "/:courseId/:availableCourseId",
+  },
   COURSE_REGISTRATION: {
     BASE: "/course-registration",
     CREATE: "",
@@ -51,8 +58,20 @@ export const END_POINTS = {
   },
   MAJOR: {
     BASE: "/major",
+    GET_PROGRAM: "/:id/program",
+  },
+  PROGRAM_ITEM: {
+    BASE: "/program-item",
+    CREATE: "",
+    DELETE: "/:id",
+    UPDATE: "/:id",
   },
 };
+export enum TERM {
+  FIRST = "first",
+  SECOND = "second",
+  THIRD = "third",
+}
 export enum ROLE_NAME {
   ADMIN = "admin",
   EMPLOYEE = "employee",
@@ -67,9 +86,9 @@ export enum PERMISSIONS {
 }
 export const jwtRTConstants = {
   stategy: "jwt-refresh-strategy",
-  liveTimeAt: "1d",
+  liveTimeAt: "7d",
 };
 export const jwtATConstants = {
   stategy: "jwt-access-strategy",
-  liveTimeAt: "1h",
+  liveTimeAt: "7d",
 };

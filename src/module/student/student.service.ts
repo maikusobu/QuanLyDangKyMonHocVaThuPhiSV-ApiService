@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { CreateStudentDto } from "./dto/create-student.dto";
-import { UpdateStudentDto } from "./dto/update-student.dto";
 import { StudentRepository } from "@repository/student/student.repository";
 
 @Injectable()
@@ -11,15 +10,23 @@ export class StudentService {
     return await this.studentRepository.createStudent(createStudentDto);
   }
 
-  async findFilteredStudentByNameOrByMSSV(name?: string, mssv?: string) {
-    return this.studentRepository.findFilteredStudentByNameOrByMSSV(name, mssv);
+  async findFilteredStudentByNameOrByMSSV(
+    name?: string,
+    mssv?: string,
+    page?: number,
+  ) {
+    return this.studentRepository.findFilteredStudentByNameOrByMSSV(
+      name,
+      mssv,
+      page,
+    );
   }
 
   async findOne(id: number) {
     return this.studentRepository.findStudentById(id);
   }
 
-  async update(id: number, updateStudentDto: UpdateStudentDto) {
+  async update(id: number, updateStudentDto: CreateStudentDto) {
     return this.studentRepository.updateStudentById(id, updateStudentDto);
   }
   async delete(id: number) {

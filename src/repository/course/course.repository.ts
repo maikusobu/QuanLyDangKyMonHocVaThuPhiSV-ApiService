@@ -2,7 +2,7 @@ import { CreateCourseDto } from "@module/course/dto/create-course.dto";
 import { FilterCourseDto } from "@module/course/dto/filter-course.dto";
 import { UpdateCourseDto } from "@module/course/dto/update-course.dto";
 import { Inject, Injectable } from "@nestjs/common";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { course } from "@db/schema";
 import { Drizzle } from "@type/drizzle.type";
 
@@ -56,5 +56,19 @@ export class CourseRepository {
       .delete(course)
       .where(eq(course.id, id))
       .returning();
+  }
+
+  async findByIds(ids: number[]) {
+    return await this.drizzle.query.course.findMany({
+      columns: {
+        courseTypeId: false,
+        facultyId: false,
+      },
+      where: inArray(course.id, ids),
+      with: {
+        courseType: true,
+        faculty: true,
+      },
+    });
   }
 }

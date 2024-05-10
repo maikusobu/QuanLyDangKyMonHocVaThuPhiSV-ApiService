@@ -1,6 +1,5 @@
 import { InsertStudent } from "src/db/schema";
 import {
-  IsString,
   IsNumber,
   IsEnum,
   ValidationArguments,
@@ -8,16 +7,19 @@ import {
   ValidatorConstraintInterface,
   registerDecorator,
   ValidationOptions,
+  IsNotEmpty,
 } from "class-validator";
 
 @ValidatorConstraint({ name: "isValidDate", async: false })
 export class IsValidDateConstraint implements ValidatorConstraintInterface {
   validate(dateString: string) {
-    return !isNaN(Date.parse(dateString));
+    const date = new Date(dateString);
+    const now = new Date();
+    return !isNaN(date.getTime()) && date < now;
   }
 
   defaultMessage(args: ValidationArguments) {
-    return `${args.property} must be a valid date string`;
+    return `${args.property} must be a valid date string and before the current date`;
   }
 }
 
@@ -38,27 +40,30 @@ enum Gender {
 }
 
 export class CreateStudentDto implements InsertStudent {
-  @IsString({ message: "name Tên không được để trống" })
+  @IsNotEmpty({ message: "name Tên không được để trống" })
   name: string;
 
-  @IsString({ message: "dateOfBirth Ngày sinh không được bỏ trống" })
-  @IsValidDate({ message: "dateOfBirth Ngày sinh không hợp lệ" })
+  @IsNotEmpty({ message: "dateOfBirth Ngày sinh không được bỏ trống" })
+  @IsValidDate({
+    message:
+      "dateOfBirth Ngày sinh không hợp lệ, ngày sinh phải trước ngày hiện tại",
+  })
   dateOfBirth: string;
 
-  @IsString({ message: "address Địa chỉ không được để trống" })
+  @IsNotEmpty({ message: "address Địa chỉ không được để trống" })
   address: string;
 
   @IsEnum(Gender, {
     message: "gender Giới tính không hợp lệ",
   })
   gender: Gender;
-
+  @IsNotEmpty({ message: "majorId Ngành không được để trống" })
   @IsNumber()
   majorId: number;
-
+  @IsNotEmpty({ message: "districtId Quận/Huyện không được để trống" })
   @IsNumber()
   districtId: number;
-
+  @IsNotEmpty({ message: "priorityId Ưu tiên không được để trống" })
   @IsNumber()
   priorityId: number;
 }

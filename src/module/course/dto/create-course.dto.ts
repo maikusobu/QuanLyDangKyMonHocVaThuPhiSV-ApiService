@@ -1,24 +1,23 @@
-import { Transform } from "class-transformer";
-import { IsInt, IsString, Length, Min } from "class-validator";
+import { IsInt, IsNotEmpty, IsString, Length, Min } from "class-validator";
 import { InsertCourse } from "src/db/schema";
 
 export class CreateCourseDto implements InsertCourse {
+  @IsNotEmpty({ message: "name Tên môn học không được để trống" })
   @Length(1, 100, {
     message: "name Tên môn học phải có độ dài từ 1 đến 100 ký tự",
   })
   @IsString()
   name: string;
 
-  @Transform(({ value }) => parseInt(value))
   @Min(1, { message: "numberOfPeriods Số tiết học phải lớn hơn hoặc bằng 1" })
-  @IsInt({ message: "numberOfPeriods Số tiết học phải là số nguyên dương" })
+  @IsInt()
   numberOfPeriods: number;
 
-  @Transform(({ value }) => parseInt(value))
+  @IsNotEmpty({ message: "courseTypeId Lọai môn học không được để trống" })
   @IsInt()
   courseTypeId: number;
 
-  @Transform(({ value }) => parseInt(value))
+  @IsNotEmpty({ message: "facultyId Khoa không được để trống" })
   @IsInt()
   facultyId: number;
 }

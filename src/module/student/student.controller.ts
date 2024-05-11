@@ -22,7 +22,7 @@ export class StudentController {
     return this.studentService.create(createStudentDto);
   }
 
-  @Get()
+  @Get(END_POINTS.STUDENT.GET_ALL)
   findAll(
     @Optional() @Query("name") name: string,
     @Optional() @Query("mssv") mssv: string,

@@ -129,6 +129,16 @@ export const permissionData: InsertPermission[] = [
     endpoint: `${END_POINTS.PROVINCE.BASE}/${END_POINTS.PROVINCE.GET_ALL_DISTRICT}`,
     action: PERMISSIONS.GET,
   },
+  // course registration
+  {
+    endpoint: `${END_POINTS.COURSE_REGISTRATION.BASE}/${END_POINTS.COURSE_REGISTRATION.CREATE}`,
+    action: PERMISSIONS.POST,
+  },
+  {
+    endpoint: `${END_POINTS.COURSE_REGISTRATION.BASE}/${END_POINTS.COURSE_REGISTRATION.GET_ALL}`,
+    action: PERMISSIONS.GET,
+  },
+
   // student
   {
     endpoint: `${END_POINTS.STUDENT.BASE}/${END_POINTS.STUDENT.CREATE}`,

@@ -69,7 +69,7 @@
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
-    "drizzle-kit": "^0.20.17",
+    "drizzle-kit": "^0.21.1",
     "esbuild-register": "^3.5.0",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",

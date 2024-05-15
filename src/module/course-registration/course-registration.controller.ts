@@ -36,7 +36,13 @@ export class CourseRegistrationController {
   findOne(@Param("id") id: string) {
     return this.courseRegistrationService.findOne(+id);
   }
-
+  @Get(END_POINTS.COURSE_REGISTRATION.GET_CURRENT)
+  findCurrent(
+    @Query() getAllCourseRegistrationDto: GetAllCourseRegistrationDto,
+  ) {
+    const { term, year } = getAllCourseRegistrationDto;
+    return this.courseRegistrationService.findCurrent(term, year);
+  }
   // @Patch(":id")
   // update(
   //   @Param("id") id: string,

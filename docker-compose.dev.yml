@@ -2,16 +2,26 @@ version: '3.4'
 services:
   redis:
     image: redis
-    
     ports:
       - 6379:6379
   db:
     image: postgres
+    restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env.development
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
     ports:
       - 5432:5432
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 volumes:
   postgres_data:

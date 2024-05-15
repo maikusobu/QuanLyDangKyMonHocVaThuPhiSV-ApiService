@@ -8,12 +8,14 @@ import { MajorRepository } from "@repository/major/major.repository";
 import { CourseRegistrationRepository } from "@repository/course-registration/course-registration.repository";
 import { TuitionPaymentRepository } from "@repository/tuition-payment/tuition-payment-repository";
 import { TuitionRepository } from "@repository/tuition/tuition.repository";
+import { HttpModule } from "@nestjs/axios";
 @Module({})
 export class RepositoryModule {
   static forRoot({ isGlobal = false }): DynamicModule {
     return {
       global: isGlobal,
       module: RepositoryModule,
+      imports: [HttpModule],
       providers: [
         UserRepository,
         AuthRepository,

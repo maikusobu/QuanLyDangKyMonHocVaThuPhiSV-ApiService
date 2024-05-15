@@ -54,6 +54,16 @@ export class StudentRepository {
     });
   }
   async updateStudentById(id: number, updateStudentDto: CreateStudentDto) {
+    if (updateStudentDto.districtId) {
+      const isMinor = await this.provinceDistrictRepository.isMinor(
+        updateStudentDto.districtId,
+      );
+      if (updateStudentDto.priorityId === 4) {
+        if (isMinor) {
+          updateStudentDto.priorityId = 3;
+        }
+      }
+    }
     return await this.drizzle
       .update(student)
       .set(updateStudentDto)

@@ -5,7 +5,7 @@ export default {
   out: "./drizzle",
   schema: "./src/db/schema/*",
   dbCredentials: {
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL!,
   },
   verbose: true,
   strict: true,

@@ -5,6 +5,7 @@ import { CreateCourseRegistrationDto } from "./dto/create-course-registration.dt
 import { CreateCourseRegistrationItemDto } from "./dto/create-course-registration-item-dto";
 import { TuitionRepository } from "@repository/tuition/tuition.repository";
 import { GetAllCourseRegistrationDto } from "./dto/get-all-course-registration.dto";
+import { TERM } from "@util/constants";
 
 @Injectable()
 export class CourseRegistrationService {
@@ -63,7 +64,12 @@ export class CourseRegistrationService {
   remove(id: number) {
     return `This action removes a #${id} courseRegistration`;
   }
-
+  async findCurrent(term: TERM, year: number) {
+    return this.courseRegistrationRepository.findCurrentRegistrationDeparment(
+      term,
+      year,
+    );
+  }
   private async computeTuition(courseRegistrationId: number) {
     console.log("Computing tuition for registration ID:", courseRegistrationId);
     // simulate long computation

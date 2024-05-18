@@ -82,6 +82,25 @@ export class TuitionRepository {
       throw new Error("Discount percentage is not a number");
     }
 
+    // Check if the Tuition is already computed, if yes, update it
+    const existingTuition = await this.drizzle.query.tuition.findFirst({
+      where: eq(tuition.courseRegistrationId, courseRegistrationId),
+    });
+
+    if (existingTuition) {
+      return await this.drizzle
+        .update(tuition)
+        .set({
+          tuitionDate: registerInformation.registrationDate,
+          totalRegisterAmount: registerAmount,
+          totalActualAmount: actualAmount,
+        })
+        .where(eq(tuition.id, existingTuition.id))
+        .returning();
+    }
+
+    // If not, create a new Tuition
+
     const newTuition = {
       tuitionDate: registerInformation.registrationDate,
       totalRegisterAmount: registerAmount,

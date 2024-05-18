@@ -1,4 +1,8 @@
-import { courseRegistration, courseRegistrationItem } from "@db/schema";
+import {
+  courseRegistration,
+  courseRegistrationItem,
+  student,
+} from "@db/schema";
 import { CreateCourseRegistrationItemDto } from "@module/course-registration/dto/create-course-registration-item-dto";
 import { CreateCourseRegistrationDto } from "@module/course-registration/dto/create-course-registration.dto";
 import { Inject, Injectable } from "@nestjs/common";
@@ -29,6 +33,30 @@ export class CourseRegistrationRepository {
     return await this.drizzle
       .insert(courseRegistrationItem)
       .values(createCourseRegistrationItemDto)
+      .returning();
+  }
+
+  async findAllWithMajorId(majorId: number, year: number, term: TERM) {
+    return await this.drizzle.query.courseRegistration.findMany({
+      where: and(
+        eq(courseRegistration.year, year),
+        eq(courseRegistration.term, term),
+        eq(student.majorId, majorId),
+      ),
+      with: {
+        student: {
+          columns: {},
+        },
+      },
+    });
+  }
+
+  async deleteAllCourseRegistrationItem(courseRegistrationId: number) {
+    return await this.drizzle
+      .delete(courseRegistrationItem)
+      .where(
+        eq(courseRegistrationItem.courseRegistrationId, courseRegistrationId),
+      )
       .returning();
   }
 

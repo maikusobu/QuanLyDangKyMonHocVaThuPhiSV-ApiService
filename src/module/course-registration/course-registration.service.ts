@@ -7,6 +7,7 @@ import { GetAllCourseRegistrationDto } from "./dto/get-all-course-registration.d
 import { TERM } from "@util/constants";
 import { CreateRegistrationDto } from "./dto/create-registration.dto";
 import { StudentRepository } from "@repository/student/student.repository";
+import { DeleteRegistrationDto } from "./dto/delete-registration.dto";
 
 @Injectable()
 export class CourseRegistrationService {
@@ -104,15 +105,39 @@ export class CourseRegistrationService {
   //   return `This action updates a #${id} courseRegistration`;
   // }
 
-  remove(id: number) {
-    return `This action removes a #${id} courseRegistration`;
+  async remove(deleteRegistrationDto: DeleteRegistrationDto) {
+    // 1. Find all CourseRegistration with majorId, year, term
+    const courseRegistrations =
+      await this.courseRegistrationRepository.findAllWithMajorId(
+        deleteRegistrationDto.majorId,
+        deleteRegistrationDto.year,
+        deleteRegistrationDto.term,
+      );
+    // 2. Delete all CourseRegistrationItem of each CourseRegistration
+    const courseRegistrationItemPromises = courseRegistrations.map(
+      async (courseRegistration) => {
+        await this.courseRegistrationRepository.deleteAllCourseRegistrationItem(
+          courseRegistration.id,
+        );
+      },
+    );
+
+    await Promise.all(courseRegistrationItemPromises);
+    // 3. Recalculate all Tuition of each CourseRegistration
+    const tuitionPromises = courseRegistrations.map((courseRegistration) => {
+      return this.computeTuition(courseRegistration.id);
+    });
+
+    await Promise.all(tuitionPromises);
   }
+
   async findCurrent(term: TERM, year: number) {
     return this.courseRegistrationRepository.findCurrentRegistrationDeparment(
       term,
       year,
     );
   }
+
   private async computeTuition(courseRegistrationId: number) {
     console.log("Computing tuition for registration ID:", courseRegistrationId);
     // simulate long computation

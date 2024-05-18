@@ -51,7 +51,7 @@ export const END_POINTS = {
     GET_CURRENT: "/current",
     GET_ONE: "/:id",
     UPDATE: "/:id",
-    DELETE: "/:id",
+    DELETE: "",
   },
   PAYMENT: {
     BASE: "/payment",

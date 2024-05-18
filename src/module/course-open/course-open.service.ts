@@ -35,32 +35,39 @@ export class CourseOpenService {
   }
 
   async findAllOneTerm(findCourseOpenDto: FindCourseOpenDto) {
-    // Get the termYear
-    const termYearID = (
-      await this.courseOpenTermRepository.get(findCourseOpenDto)
-    ).id;
-    // Get all courses for that term
-    const coursesID =
-      await this.courseOpenRepository.findAllOneTerm(termYearID);
-    // Create a lookup object from coursesID
-    const coursesIDLookup = coursesID.reduce((lookup, course) => {
-      lookup[course.courseId] = course.availableCourseId;
-      return lookup;
-    }, {});
-    // Get all courses
-    const courses = await this.courseRepository.findByIds(
-      coursesID.map((c) => c.courseId),
+    return this.courseOpenRepository.findAllOneTerm(
+      findCourseOpenDto.term,
+      findCourseOpenDto.year,
     );
-    // Merge availableCourseId into courses
-    const mergedCourses = courses.map((course) => ({
-      ...course,
-      availableCourseId: coursesIDLookup[course.id],
-    }));
-
-    return mergedCourses;
   }
 
   delete(deleteCourseOpenDto: DeleteCourseOpenDto) {
     return this.courseOpenRepository.delete(deleteCourseOpenDto);
   }
+
+  // async findAllOneTerm(findCourseOpenDto: FindCourseOpenDto) {
+  //   // Get the termYear
+  //   const termYearID = (
+  //     await this.courseOpenTermRepository.get(findCourseOpenDto)
+  //   ).id;
+  //   // Get all courses for that term
+  //   const coursesID =
+  //     await this.courseOpenRepository.findAllOneTerm(termYearID);
+  //   // Create a lookup object from coursesID
+  //   const coursesIDLookup = coursesID.reduce((lookup, course) => {
+  //     lookup[course.courseId] = course.availableCourseId;
+  //     return lookup;
+  //   }, {});
+  //   // Get all courses
+  //   const courses = await this.courseRepository.findByIds(
+  //     coursesID.map((c) => c.courseId),
+  //   );
+  //   // Merge availableCourseId into courses
+  //   const mergedCourses = courses.map((course) => ({
+  //     ...course,
+  //     availableCourseId: coursesIDLookup[course.id],
+  //   }));
+
+  //   return mergedCourses;
+  // }
 }

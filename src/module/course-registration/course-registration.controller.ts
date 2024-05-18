@@ -38,14 +38,6 @@ export class CourseRegistrationController {
     return this.courseRegistrationService.findAll(getAllCourseRegistrationDto);
   }
 
-  @Get(END_POINTS.COURSE_REGISTRATION.GET_CURRENT)
-  findCurrent(
-    @Query() getAllCourseRegistrationDto: GetAllCourseRegistrationDto,
-  ) {
-    const { term, year } = getAllCourseRegistrationDto;
-    return this.courseRegistrationService.findCurrent(term, year);
-  }
-
   @Delete(END_POINTS.COURSE_REGISTRATION.DELETE)
   remove(@Query() deleteRegistrationDto: DeleteRegistrationDto) {
     return this.courseRegistrationService.remove(deleteRegistrationDto);

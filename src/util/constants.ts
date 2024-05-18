@@ -48,7 +48,6 @@ export const END_POINTS = {
     BASE: "/course-registration",
     CREATE: "",
     GET_ALL: "",
-    GET_CURRENT: "/current",
     GET_ONE: "/:id",
     UPDATE: "/:id",
     DELETE: "",

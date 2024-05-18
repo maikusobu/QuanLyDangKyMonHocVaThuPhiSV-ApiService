@@ -1,11 +1,11 @@
-import { Term } from "./create-course-registration-form.dto";
+import { TERM } from "@util/constants";
 
 export class CreateCourseRegistrationDto {
   registrationDate: string;
 
   year: number;
 
-  term: Term;
+  term: TERM;
 
   studentId: number;
 }

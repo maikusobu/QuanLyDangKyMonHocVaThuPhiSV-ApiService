@@ -8,9 +8,9 @@ import {
   Query,
 } from "@nestjs/common";
 import { CourseRegistrationService } from "./course-registration.service";
-import { CreateCourseRegistrationFormDto } from "./dto/create-course-registration-form.dto";
 import { END_POINTS } from "@util/constants";
 import { GetAllCourseRegistrationDto } from "./dto/get-all-course-registration.dto";
+import { CreateRegistrationDto } from "./dto/create-registration.dto";
 
 @Controller(END_POINTS.COURSE_REGISTRATION.BASE)
 export class CourseRegistrationController {
@@ -18,13 +18,18 @@ export class CourseRegistrationController {
     private readonly courseRegistrationService: CourseRegistrationService,
   ) {}
 
+  // @Post(END_POINTS.COURSE_REGISTRATION.CREATE)
+  // create(
+  //   @Body() createCourseRegistrationFormDto: CreateCourseRegistrationFormDto,
+  // ) {
+  //   return this.courseRegistrationService.create(
+  //     createCourseRegistrationFormDto,
+  //   );
+  // }
+
   @Post(END_POINTS.COURSE_REGISTRATION.CREATE)
-  create(
-    @Body() createCourseRegistrationFormDto: CreateCourseRegistrationFormDto,
-  ) {
-    return this.courseRegistrationService.create(
-      createCourseRegistrationFormDto,
-    );
+  create(@Body() createRegistrationDto: CreateRegistrationDto) {
+    return this.courseRegistrationService.create(createRegistrationDto);
   }
 
   @Get(END_POINTS.COURSE_REGISTRATION.GET_ALL)

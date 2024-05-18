@@ -112,6 +112,12 @@ export class StudentRepository {
     return students;
   }
 
+  async findStudentByMajorId(majorId: number) {
+    return await this.drizzle.query.student.findMany({
+      where: eq(student.majorId, majorId),
+    });
+  }
+
   async deleteStudentById(id: number) {
     return await this.drizzle
       .delete(student)

@@ -9,6 +9,9 @@ import { CourseRegistrationRepository } from "@repository/course-registration/co
 import { TuitionPaymentRepository } from "@repository/tuition-payment/tuition-payment-repository";
 import { TuitionRepository } from "@repository/tuition/tuition.repository";
 import { HttpModule } from "@nestjs/axios";
+import { CourseOpenRepository } from "@repository/course-open/course-open.repository";
+import { CourseRepository } from "@repository/course/course.repository";
+import { CourseOpenTermRepository } from "@repository/course-open/course-open-term.repository";
 @Module({})
 export class RepositoryModule {
   static forRoot({ isGlobal = false }): DynamicModule {
@@ -24,8 +27,11 @@ export class RepositoryModule {
         ProvinceDistrictRepository,
         MajorRepository,
         CourseRegistrationRepository,
+        CourseOpenTermRepository,
+        CourseRepository,
         TuitionPaymentRepository,
         TuitionRepository,
+        CourseOpenRepository,
       ],
       exports: [
         UserRepository,
@@ -37,6 +43,9 @@ export class RepositoryModule {
         CourseRegistrationRepository,
         TuitionPaymentRepository,
         TuitionRepository,
+        CourseOpenRepository,
+        CourseOpenTermRepository,
+        CourseRepository,
       ],
     };
   }

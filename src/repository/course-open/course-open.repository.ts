@@ -17,6 +17,12 @@ export class CourseOpenRepository {
     private configService: ConfigService,
   ) {}
 
+  // create(createCourseOpenDto: CreateCourseOpenDto) {
+  //   // if courseOpen exists, delete it
+  //   // const termResolved = resolveTerm(createCourseOpenDto.term);
+  //   // const url = this.configService.get<string>("service");
+  // }
+
   async createCourseOpen(item: InsertAvailableCourseItem) {
     // check if courseId exists
     const checkForCourseExistence =

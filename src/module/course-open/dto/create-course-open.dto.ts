@@ -1,13 +1,16 @@
 import { TERM } from "@util/constants";
-import { IsEnum, IsInt } from "class-validator";
+import { IsArray, IsEnum, IsInt, IsNumber } from "class-validator";
 
 export class CreateCourseOpenDto {
-  @IsInt()
-  courseId: number;
+  @IsNumber()
+  majorId: number;
 
   @IsEnum(TERM)
   term: TERM;
 
   @IsInt()
   year: number;
+
+  @IsArray()
+  courseIds: number[];
 }

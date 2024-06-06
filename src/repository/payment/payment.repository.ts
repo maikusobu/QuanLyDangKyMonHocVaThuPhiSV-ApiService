@@ -4,50 +4,41 @@ import {
   tuition,
   tuitionPayment,
 } from "@db/schema";
+import { FindPaymentDto } from "@module/payment/dto/find-payment.dto";
 import { FindTuitionDto } from "@module/payment/dto/find-tuition.dto";
 import { Inject, Injectable } from "@nestjs/common";
 import { Drizzle } from "@type/drizzle.type";
-import { and, eq, gte, sql, sum } from "drizzle-orm";
+import { and, eq, gte, like, sql, sum } from "drizzle-orm";
 
 @Injectable()
 export class PaymentRepository {
   constructor(@Inject("DRIZZLE") private drizzle: Drizzle) {}
 
-  async findAllPayment() {
-    const query = await this.drizzle.query.tuitionPayment.findMany({
-      with: {
-        tuition: {
-          columns: {},
-          with: {
-            courseRegistration: {
-              columns: {},
-              with: {
-                student: {
-                  columns: {
-                    id: true,
-                    name: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    });
-
-    const result = query.map((item) => {
-      return {
-        id: item.id,
-        student: {
-          id: item.tuition.courseRegistration.student.id,
-          name: item.tuition.courseRegistration.student.name,
-        },
-        amount: item.amount,
-        paymentDate: item.paymentDate,
-      };
-    });
-
-    return result;
+  async findPayment(findPaymentDto: FindPaymentDto) {
+    return await this.drizzle
+      .select({
+        id: tuitionPayment.id,
+        ammount: tuitionPayment.amount,
+        paymentDate: tuitionPayment.paymentDate,
+        year: courseRegistration.year,
+        term: courseRegistration.term,
+        studentId: student.id,
+        studentName: student.name,
+      })
+      .from(tuitionPayment)
+      .innerJoin(tuition, eq(tuitionPayment.tuitionId, tuition.id))
+      .innerJoin(
+        courseRegistration,
+        eq(tuition.courseRegistrationId, courseRegistration.id),
+      )
+      .innerJoin(student, eq(courseRegistration.studentId, student.id))
+      .where(
+        and(
+          eq(courseRegistration.year, findPaymentDto.year),
+          eq(courseRegistration.term, findPaymentDto.term),
+          like(student.name, `%${findPaymentDto.studentName}%`),
+        ),
+      );
   }
 
   async findTuition(findTuitionDto: FindTuitionDto) {
@@ -63,6 +54,7 @@ export class PaymentRepository {
   async findAllTuition(findTuitionDto: FindTuitionDto) {
     const result = await this.drizzle
       .select({
+        id: tuition.id,
         totalPaid: sum(tuitionPayment.amount),
         studentId: student.id,
         studentName: student.name,
@@ -83,16 +75,29 @@ export class PaymentRepository {
         and(
           eq(courseRegistration.year, findTuitionDto.year),
           eq(courseRegistration.term, findTuitionDto.term),
+          like(student.name, `%${findTuitionDto.studentName}%`),
         ),
       )
-      .groupBy(student.id);
+      .groupBy(
+        tuition.id,
+        student.id,
+        student.name,
+        tuition.totalRegisterAmount,
+        tuition.totalActualAmount,
+      );
 
-    return result;
+    const convertedResult = result.map((record) => ({
+      ...record,
+      totalPaid: Number(record.totalPaid),
+    }));
+
+    return convertedResult;
   }
 
   async findPaidTuition(findTuitionDto: FindTuitionDto) {
     const result = await this.drizzle
       .select({
+        id: tuition.id,
         totalPaid: sum(tuitionPayment.amount),
         studentId: student.id,
         studentName: student.name,
@@ -113,17 +118,30 @@ export class PaymentRepository {
         and(
           eq(courseRegistration.year, findTuitionDto.year),
           eq(courseRegistration.term, findTuitionDto.term),
+          like(student.name, `%${findTuitionDto.studentName}%`),
         ),
       )
-      .groupBy(student.id)
+      .groupBy(
+        tuition.id,
+        student.id,
+        student.name,
+        tuition.totalRegisterAmount,
+        tuition.totalActualAmount,
+      )
       .having(({ totalPaid }) => gte(totalPaid, tuition.totalActualAmount));
 
-    return result;
+    const convertedResult = result.map((record) => ({
+      ...record,
+      totalPaid: Number(record.totalPaid),
+    }));
+
+    return convertedResult;
   }
 
   async findPendingTuition(findTuitionDto: FindTuitionDto) {
     const result = await this.drizzle
       .select({
+        id: tuition.id,
         totalPaid: sum(tuitionPayment.amount),
         studentId: student.id,
         studentName: student.name,
@@ -144,13 +162,25 @@ export class PaymentRepository {
         and(
           eq(courseRegistration.year, findTuitionDto.year),
           eq(courseRegistration.term, findTuitionDto.term),
+          like(student.name, `%${findTuitionDto.studentName}%`),
         ),
       )
-      .groupBy(student.id)
+      .groupBy(
+        tuition.id,
+        student.id,
+        student.name,
+        tuition.totalRegisterAmount,
+        tuition.totalActualAmount,
+      )
       .having(
         sql`sum(${tuitionPayment.amount}) is null or sum(${tuitionPayment.amount}) < ${tuition.totalActualAmount}`,
       );
 
-    return result;
+    const convertedResult = result.map((record) => ({
+      ...record,
+      totalPaid: Number(record.totalPaid),
+    }));
+
+    return convertedResult;
   }
 }

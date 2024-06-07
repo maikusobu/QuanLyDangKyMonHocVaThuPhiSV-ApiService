@@ -53,8 +53,23 @@ export class CourseOpenRepository {
       throw new Error("State does not available for registration");
     }
 
+    const insertData = {
+      stateId: createCourseOpenDto.stateId,
+      majorId: createCourseOpenDto.majorId,
+      majorName: createCourseOpenDto.majorName,
+      courses: [],
+    };
+
+    for (const course of createCourseOpenDto.courses) {
+      insertData.courses.push({
+        courseId: course.courseId,
+        courseName: course.courseName,
+        courseNumberOfPeriods: course.numberOfPeriods,
+      });
+    }
+
     const { data } = await firstValueFrom(
-      this.httpService.post(`${url}/open_course`, createCourseOpenDto),
+      this.httpService.post(`${url}/open_course`, insertData),
     );
 
     // Register students in background
@@ -111,6 +126,8 @@ export class CourseOpenRepository {
     } catch (error) {
       console.error("Failed to register students in background:", error);
       this.taskStatuses.set(taskId, "completed"); // consider handling errors differently
+    } finally {
+      console.log("Registered students in background");
     }
   }
 
@@ -144,6 +161,8 @@ export class CourseOpenRepository {
         "Failed to delete course registration in background:",
         error,
       );
+    } finally {
+      console.log("Deleted course registration in background");
     }
   }
 
@@ -197,6 +216,7 @@ export class CourseOpenRepository {
   async findAllOneTerm(term: TERM, year: number) {
     const termResolved = resolveTerm(term);
     const url = this.configService.get<string>("service");
+    // console.log(url);
     const { data: stateData } = await firstValueFrom(
       this.httpService.get(
         `${url}/registration_state?term=${termResolved}&year=${year}`,

@@ -5,10 +5,17 @@ import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { and, eq, inArray, like } from "drizzle-orm";
 import { course } from "@db/schema";
 import { Drizzle } from "@type/drizzle.type";
+import { HttpService } from "@nestjs/axios";
+import { ConfigService } from "@nestjs/config";
+import { firstValueFrom } from "rxjs";
 
 @Injectable()
 export class CourseRepository {
-  constructor(@Inject("DRIZZLE") private drizzle: Drizzle) {}
+  constructor(
+    @Inject("DRIZZLE") private drizzle: Drizzle,
+    private readonly httpService: HttpService,
+    private configService: ConfigService,
+  ) {}
 
   async create(body: CreateCourseDto) {
     return await this.drizzle.insert(course).values(body).returning();
@@ -45,6 +52,13 @@ export class CourseRepository {
   }
 
   async update(id: number, body: UpdateCourseDto) {
+    const currentState = await this.checkCurrentState();
+    if (currentState) {
+      return new HttpException(
+        "Cannot update course when registration is open",
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     if (body.numberOfPeriods) {
       // set the current course isDeleted to true
       const prevCourse = await this.drizzle
@@ -92,10 +106,13 @@ export class CourseRepository {
   }
 
   async remove(id: number) {
-    // return await this.drizzle
-    //   .delete(course)
-    //   .where(eq(course.id, id))
-    //   .returning();
+    const currentState = await this.checkCurrentState();
+    if (currentState) {
+      return new HttpException(
+        "Cannot delete course when registration is open",
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     return await this.drizzle
       .update(course)
       .set({ isDeleted: true })
@@ -115,5 +132,14 @@ export class CourseRepository {
         faculty: true,
       },
     });
+  }
+
+  private async checkCurrentState() {
+    const url = this.configService.get<string>("service");
+    const response = await firstValueFrom(
+      this.httpService.get(`${url}/registrationState`),
+    );
+
+    return response.data.available;
   }
 }

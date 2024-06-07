@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Query,
-} from "@nestjs/common";
+import { Body, Controller, Delete, Get, Post, Query } from "@nestjs/common";
 import { CourseOpenService } from "./course-open.service";
 import { END_POINTS } from "@util/constants";
 import { CreateCourseOpenDto } from "./dto/create-course-open.dto";
@@ -34,7 +26,7 @@ export class CourseOpenController {
   }
 
   @Delete(END_POINTS.COURSE_OPEN.DELETE)
-  delete(@Param() deleteCourseOpenDto: DeleteCourseOpenDto) {
+  delete(@Body() deleteCourseOpenDto: DeleteCourseOpenDto) {
     return this.courseOpenService.delete(deleteCourseOpenDto);
   }
 }

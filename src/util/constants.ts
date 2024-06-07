@@ -43,7 +43,7 @@ export const END_POINTS = {
     CURRENT_STATE: "/current-state",
     GET_ALL_ONE_TERM: "",
     UPDATE: "/:id",
-    DELETE: "/:courseId/:availableCourseId",
+    DELETE: "",
   },
   COURSE_REGISTRATION: {
     BASE: "/course-registration",

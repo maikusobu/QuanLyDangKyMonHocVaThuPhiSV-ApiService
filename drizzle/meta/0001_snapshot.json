@@ -1,10 +1,8 @@
 {
-  "id": "e7f1f2ab-7be0-48a5-99c4-3f09e3661587",
-  "prevId": "f8e3c5d8-50f2-4586-9f43-8674ec18f976",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "available_course": {
+    "public.available_course": {
       "name": "available_course",
       "schema": "",
       "columns": {
@@ -32,7 +30,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "available_course_item": {
+    "public.available_course_item": {
       "name": "available_course_item",
       "schema": "",
       "columns": {
@@ -62,7 +60,7 @@
       },
       "uniqueConstraints": {}
     },
-    "course": {
+    "public.course": {
       "name": "course",
       "schema": "",
       "columns": {
@@ -102,7 +100,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "course_registration": {
+    "public.course_registration": {
       "name": "course_registration",
       "schema": "",
       "columns": {
@@ -142,7 +140,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "course_registration_item": {
+    "public.course_registration_item": {
       "name": "course_registration_item",
       "schema": "",
       "columns": {
@@ -172,7 +170,7 @@
       },
       "uniqueConstraints": {}
     },
-    "course_type": {
+    "public.course_type": {
       "name": "course_type",
       "schema": "",
       "columns": {
@@ -201,14 +199,14 @@
       "uniqueConstraints": {
         "course_type_name_unique": {
           "name": "course_type_name_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "department": {
+    "public.department": {
       "name": "department",
       "schema": "",
       "columns": {
@@ -230,7 +228,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "department_permission": {
+    "public.department_permission": {
       "name": "department_permission",
       "schema": "",
       "columns": {
@@ -260,7 +258,7 @@
       },
       "uniqueConstraints": {}
     },
-    "district": {
+    "public.district": {
       "name": "district",
       "schema": "",
       "columns": {
@@ -294,7 +292,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "faculty": {
+    "public.faculty": {
       "name": "faculty",
       "schema": "",
       "columns": {
@@ -317,14 +315,14 @@
       "uniqueConstraints": {
         "faculty_name_unique": {
           "name": "faculty_name_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "user": {
+    "public.user": {
       "name": "user",
       "schema": "",
       "columns": {
@@ -371,14 +369,14 @@
       "uniqueConstraints": {
         "user_email_unique": {
           "name": "user_email_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "permission": {
+    "public.permission": {
       "name": "permission",
       "schema": "",
       "columns": {
@@ -406,7 +404,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "province": {
+    "public.province": {
       "name": "province",
       "schema": "",
       "columns": {
@@ -429,14 +427,14 @@
       "uniqueConstraints": {
         "province_name_unique": {
           "name": "province_name_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "student": {
+    "public.student": {
       "name": "student",
       "schema": "",
       "columns": {
@@ -488,7 +486,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "major": {
+    "public.major": {
       "name": "major",
       "schema": "",
       "columns": {
@@ -517,14 +515,14 @@
       "uniqueConstraints": {
         "major_name_unique": {
           "name": "major_name_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "priority": {
+    "public.priority": {
       "name": "priority",
       "schema": "",
       "columns": {
@@ -553,14 +551,14 @@
       "uniqueConstraints": {
         "priority_name_unique": {
           "name": "priority_name_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
-    "program": {
+    "public.program": {
       "name": "program",
       "schema": "",
       "columns": {
@@ -582,7 +580,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "program_item": {
+    "public.program_item": {
       "name": "program_item",
       "schema": "",
       "columns": {
@@ -622,7 +620,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "tuition": {
+    "public.tuition": {
       "name": "tuition",
       "schema": "",
       "columns": {
@@ -662,7 +660,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "tuition_payment": {
+    "public.tuition_payment": {
       "name": "tuition_payment",
       "schema": "",
       "columns": {
@@ -698,44 +696,50 @@
     }
   },
   "enums": {
-    "action": {
+    "public.action": {
       "name": "action",
-      "values": {
-        "get": "get",
-        "post": "post",
-        "put": "put",
-        "patch": "patch",
-        "delete": "delete"
-      }
+      "schema": "public",
+      "values": [
+        "get",
+        "post",
+        "put",
+        "patch",
+        "delete"
+      ]
     },
-    "gender": {
+    "public.gender": {
       "name": "gender",
-      "values": {
-        "male": "male",
-        "female": "female"
-      }
+      "schema": "public",
+      "values": [
+        "male",
+        "female"
+      ]
     },
-    "role": {
+    "public.role": {
       "name": "role",
-      "values": {
-        "admin": "admin",
-        "employee": "employee",
-        "student": "student"
-      }
+      "schema": "public",
+      "values": [
+        "admin",
+        "employee",
+        "student"
+      ]
     },
-    "term": {
+    "public.term": {
       "name": "term",
-      "values": {
-        "first": "first",
-        "second": "second",
-        "third": "third"
-      }
+      "schema": "public",
+      "values": [
+        "first",
+        "second",
+        "third"
+      ]
     }
   },
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "e7f1f2ab-7be0-48a5-99c4-3f09e3661587",
+  "prevId": "f8e3c5d8-50f2-4586-9f43-8674ec18f976"
 }

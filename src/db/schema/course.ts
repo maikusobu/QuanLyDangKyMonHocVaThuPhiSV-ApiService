@@ -1,4 +1,10 @@
-import { integer, pgTable, serial, varchar } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  integer,
+  pgTable,
+  serial,
+  varchar,
+} from "drizzle-orm/pg-core";
 import { courseType } from "./courseType";
 import { faculty } from "./faculty";
 import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
@@ -10,6 +16,7 @@ export const course = pgTable("course", {
   numberOfPeriods: integer("number_of_periods").notNull(),
   courseTypeId: integer("course_type_id").notNull(),
   facultyId: integer("faculty_id").notNull(),
+  isDeleted: boolean("is_deleted").notNull().default(false),
 });
 
 export const courseRelations = relations(course, ({ one, many }) => ({

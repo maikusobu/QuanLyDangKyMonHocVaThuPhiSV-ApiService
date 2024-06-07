@@ -1,9 +1,9 @@
-import { IsInt } from "class-validator";
+import { IsString } from "class-validator";
 
 export class DeleteCourseOpenDto {
-  @IsInt()
-  courseId: number;
+  @IsString()
+  openCourseId: string;
 
-  @IsInt()
-  availableCourseId: number;
+  @IsString()
+  stateId: string;
 }

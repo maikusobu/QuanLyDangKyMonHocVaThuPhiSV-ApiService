@@ -4,7 +4,6 @@ import { CreateCourseRegistrationDto } from "./dto/create-course-registration.dt
 import { CreateCourseRegistrationItemDto } from "./dto/create-course-registration-item-dto";
 import { TuitionRepository } from "@repository/tuition/tuition.repository";
 import { GetAllCourseRegistrationDto } from "./dto/get-all-course-registration.dto";
-import { TERM } from "@util/constants";
 import { CreateRegistrationDto } from "./dto/create-registration.dto";
 import { StudentRepository } from "@repository/student/student.repository";
 import { DeleteRegistrationDto } from "./dto/delete-registration.dto";
@@ -129,13 +128,6 @@ export class CourseRegistrationService {
     });
 
     await Promise.all(tuitionPromises);
-  }
-
-  async findCurrent(term: TERM, year: number) {
-    return this.courseRegistrationRepository.findCurrentRegistrationDeparment(
-      term,
-      year,
-    );
   }
 
   private async computeTuition(courseRegistrationId: number) {

@@ -9,10 +9,8 @@ import { Inject, Injectable } from "@nestjs/common";
 import { Drizzle } from "@type/drizzle.type";
 import { TERM } from "@util/constants";
 import { and, eq } from "drizzle-orm";
-import { resolveTerm } from "./helper/resolveTerm";
 import { HttpService } from "@nestjs/axios";
 import { ConfigService } from "@nestjs/config";
-import { firstValueFrom } from "rxjs";
 @Injectable()
 export class CourseRegistrationRepository {
   constructor(
@@ -79,27 +77,5 @@ export class CourseRegistrationRepository {
       },
     });
     return registration;
-  }
-  async findCurrentRegistrationDeparment(term: TERM, year: number) {
-    const termResolved = resolveTerm(term);
-    const url = this.configService.get<string>("service");
-    const { data } = await firstValueFrom(
-      this.httpService.get(
-        `${url}/open_course?term=${termResolved}&year=${year}`,
-      ),
-    );
-    if (!data) {
-      this.httpService.patch(`${url}/open_course`, {
-        term: termResolved,
-        year,
-        majors: [],
-      });
-      return {
-        term: termResolved,
-        year,
-        majors: [],
-      };
-    }
-    return data;
   }
 }

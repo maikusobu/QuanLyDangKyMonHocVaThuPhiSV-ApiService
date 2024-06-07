@@ -12,6 +12,7 @@ import { END_POINTS } from "@util/constants";
 import { CreateCourseOpenDto } from "./dto/create-course-open.dto";
 import { FindCourseOpenDto } from "./dto/find-course-open.dto";
 import { DeleteCourseOpenDto } from "./dto/delete-course-open.dto";
+import { CloseCurrentStateDto } from "./dto/close-current-state.dto";
 
 @Controller(END_POINTS.COURSE_OPEN.BASE)
 export class CourseOpenController {
@@ -20,6 +21,11 @@ export class CourseOpenController {
   @Post(END_POINTS.COURSE_OPEN.CREATE)
   create(@Body() createCourseOpenDto: CreateCourseOpenDto) {
     return this.courseOpenService.create(createCourseOpenDto);
+  }
+
+  @Post(END_POINTS.COURSE_OPEN.CURRENT_STATE)
+  closeCurrentState(@Body() closeCurrentStateDto: CloseCurrentStateDto) {
+    return this.courseOpenService.closeCurrentState(closeCurrentStateDto);
   }
 
   @Get(END_POINTS.COURSE_OPEN.GET_ALL_ONE_TERM)

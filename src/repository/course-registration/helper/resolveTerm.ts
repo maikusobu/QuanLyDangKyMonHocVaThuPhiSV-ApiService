@@ -12,3 +12,16 @@ export const resolveTerm = (term: TERM) => {
       return 0;
   }
 };
+
+export const reverseTerm = (term: number) => {
+  switch (term) {
+    case 1:
+      return TERM.FIRST;
+    case 2:
+      return TERM.SECOND;
+    case 3:
+      return TERM.THIRD;
+    default:
+      return TERM.FIRST;
+  }
+};

@@ -9,12 +9,24 @@ import { and, eq } from "drizzle-orm";
 export class CourseOpenTermRepository {
   constructor(@Inject("DRIZZLE") private drizzle: Drizzle) {}
 
-  async get(findCourseOpenDto: FindCourseOpenDto) {
+  async findOne(findCourseOpenDto: FindCourseOpenDto) {
     const termYear = await this.drizzle.query.availableCourse.findFirst({
       where: and(
         eq(availableCourse.term, findCourseOpenDto.term),
         eq(availableCourse.year, findCourseOpenDto.year),
       ),
+      with: {
+        availableCourseItems: {
+          with: {
+            course: {
+              with: {
+                faculty: true,
+                courseType: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     return termYear;

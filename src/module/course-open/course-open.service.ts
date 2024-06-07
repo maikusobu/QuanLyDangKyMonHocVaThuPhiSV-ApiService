@@ -50,6 +50,7 @@ export class CourseOpenService {
     return await this.courseOpenRepository.create(createCourseOpenDto);
   }
 
+
   async findAllOneTerm(findCourseOpenDto: FindCourseOpenDto) {
     return this.courseOpenRepository.findAllOneTerm(
       findCourseOpenDto.term,

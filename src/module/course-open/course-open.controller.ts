@@ -22,7 +22,7 @@ export class CourseOpenController {
 
   @Get(END_POINTS.COURSE_OPEN.GET_ALL_ONE_TERM)
   findAllOneTerm(@Query() findCourseOpenDto: FindCourseOpenDto) {
-    return this.courseOpenService.findAllOneTerm(findCourseOpenDto);
+    return this.courseOpenService.findOne(findCourseOpenDto);
   }
 
   @Delete(END_POINTS.COURSE_OPEN.DELETE)

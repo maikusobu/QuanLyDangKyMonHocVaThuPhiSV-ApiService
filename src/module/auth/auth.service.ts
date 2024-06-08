@@ -13,7 +13,9 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException("Invalid email or password");
     }
+
     const token = await this.authRepository.signIn(loginDto, user);
+
     return { access_token: token };
   }
 

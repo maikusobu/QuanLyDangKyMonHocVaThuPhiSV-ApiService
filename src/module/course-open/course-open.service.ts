@@ -21,12 +21,13 @@ export class CourseOpenService {
       await this.courseOpenRepository.closeCurrentState(closeCurrentStateDto);
 
     // Background task to calculate tuition for all students
-    this.computeTuition(
-      closeCurrentStateDto.term,
-      closeCurrentStateDto.year,
-    ).catch((error) => {
-      console.error("Failed to calculate tuition:", error);
-    });
+    this.computeTuition(closeCurrentStateDto.term, closeCurrentStateDto.year)
+      .catch((error) => {
+        console.error("Failed to calculate tuition:", error);
+      })
+      .finally(() => {
+        console.log("Tuition calculation completed");
+      });
 
     return result;
   }

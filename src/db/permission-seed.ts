@@ -43,6 +43,7 @@ const permissionSeed = async () => {
     [END_POINTS.PROGRAM_ITEM.BASE]: [departmentID.dtID],
     [END_POINTS.PROVINCE.BASE]: [departmentID.ctsvID],
     [END_POINTS.COURSE_REGISTRATION.BASE]: [departmentID.khtcID],
+    [END_POINTS.COURSE_OPEN.BASE]: [departmentID.dtID],
   };
 
   // Function to insert department permissions

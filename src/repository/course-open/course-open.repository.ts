@@ -9,7 +9,7 @@ import { CloseCurrentStateDto } from "@module/course-open/dto/close-current-stat
 import { CreateCourseOpenDto } from "@module/course-open/dto/create-course-open.dto";
 import { DeleteCourseOpenDto } from "@module/course-open/dto/delete-course-open.dto";
 import { HttpService } from "@nestjs/axios";
-import { Inject, Injectable } from "@nestjs/common";
+import { HttpException, Inject, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import {
   resolveTerm,
@@ -34,7 +34,7 @@ export class CourseOpenRepository {
     const url = this.configService.get<string>("service");
     const { data } = await firstValueFrom(
       this.httpService.patch(
-        `${url}/registrationState/?term=${resolveTerm(closeCurrentStateDto.term)}&year=${closeCurrentStateDto.year}`,
+        `${url}/registration_state?term=${resolveTerm(closeCurrentStateDto.term)}&year=${closeCurrentStateDto.year}`,
       ),
     );
 
@@ -50,7 +50,10 @@ export class CourseOpenRepository {
     );
 
     if (!stateData || !stateData.available) {
-      throw new Error("State does not available for registration");
+      return new HttpException(
+        "State does not available for registration",
+        400,
+      );
     }
 
     const insertData = {
@@ -173,7 +176,10 @@ export class CourseOpenRepository {
         `registration-${deleteCourseOpenDto.openCourseId}`,
       ) === "running"
     ) {
-      throw new Error("Cannot delete while registration is in progress");
+      return new HttpException(
+        "Cannot delete while registration is in progress",
+        400,
+      );
     }
 
     const url = this.configService.get<string>("service");
@@ -185,17 +191,18 @@ export class CourseOpenRepository {
     );
 
     if (!stateData || !stateData.available) {
-      throw new Error("State does not available for deletion");
+      return new HttpException("State does not available for deletion", 400);
     }
+
     const { data: openCourseData } = await firstValueFrom(
       this.httpService.get(
-        `${url}/open_course/?id=${deleteCourseOpenDto.openCourseId}`,
+        `${url}/open_course?id=${deleteCourseOpenDto.openCourseId}`,
       ),
     );
 
     const { data } = await firstValueFrom(
       this.httpService.delete(
-        `${url}/open_course/?id=${deleteCourseOpenDto.openCourseId}`,
+        `${url}/open_course?id=${deleteCourseOpenDto.openCourseId}`,
       ),
     );
 
@@ -249,7 +256,7 @@ export class CourseOpenRepository {
       });
 
     if (checkForCourseExistence) {
-      throw new Error("Course already exists");
+      return new HttpException("Course already exists", 400);
     }
     const courseOpen = await this.drizzle
       .insert(availableCourseItem)

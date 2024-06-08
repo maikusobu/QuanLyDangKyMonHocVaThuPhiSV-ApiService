@@ -34,7 +34,7 @@ export class CourseOpenRepository {
     const url = this.configService.get<string>("service");
     const { data } = await firstValueFrom(
       this.httpService.patch(
-        `${url}/registrationState/?term=${resolveTerm(closeCurrentStateDto.term)}&year=${closeCurrentStateDto.year}`,
+        `${url}/registration_state?term=${resolveTerm(closeCurrentStateDto.term)}&year=${closeCurrentStateDto.year}`,
       ),
     );
 
@@ -193,15 +193,16 @@ export class CourseOpenRepository {
     if (!stateData || !stateData.available) {
       return new HttpException("State does not available for deletion", 400);
     }
+
     const { data: openCourseData } = await firstValueFrom(
       this.httpService.get(
-        `${url}/open_course/?id=${deleteCourseOpenDto.openCourseId}`,
+        `${url}/open_course?id=${deleteCourseOpenDto.openCourseId}`,
       ),
     );
 
     const { data } = await firstValueFrom(
       this.httpService.delete(
-        `${url}/open_course/?id=${deleteCourseOpenDto.openCourseId}`,
+        `${url}/open_course?id=${deleteCourseOpenDto.openCourseId}`,
       ),
     );
 

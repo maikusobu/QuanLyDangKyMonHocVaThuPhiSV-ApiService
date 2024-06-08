@@ -1,4 +1,6 @@
 {
+  "id": "af3c56e3-601a-4bbb-881d-87735a1e85c2",
+  "prevId": "e7f1f2ab-7be0-48a5-99c4-3f09e3661587",
   "version": "6",
   "dialect": "postgresql",
   "tables": {
@@ -21,6 +23,7 @@
         "term": {
           "name": "term",
           "type": "term",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
         }
@@ -72,7 +75,7 @@
         },
         "name": {
           "name": "name",
-          "type": "varchar",
+          "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true
         },
@@ -93,6 +96,13 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true
+        },
+        "is_deleted": {
+          "name": "is_deleted",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
         }
       },
       "indexes": {},
@@ -125,6 +135,7 @@
         "term": {
           "name": "term",
           "type": "term",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -199,10 +210,10 @@
       "uniqueConstraints": {
         "course_type_name_unique": {
           "name": "course_type_name_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       }
     },
@@ -315,10 +326,10 @@
       "uniqueConstraints": {
         "faculty_name_unique": {
           "name": "faculty_name_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       }
     },
@@ -353,6 +364,7 @@
         "role": {
           "name": "role",
           "type": "role",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -369,10 +381,10 @@
       "uniqueConstraints": {
         "user_email_unique": {
           "name": "user_email_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "email"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       }
     },
@@ -395,6 +407,7 @@
         "action": {
           "name": "action",
           "type": "action",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         }
@@ -427,10 +440,10 @@
       "uniqueConstraints": {
         "province_name_unique": {
           "name": "province_name_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       }
     },
@@ -459,12 +472,25 @@
         "gender": {
           "name": "gender",
           "type": "gender",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
+        },
+        "mssv": {
+          "name": "mssv",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         },
         "major_id": {
           "name": "major_id",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "address": {
+          "name": "address",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
@@ -484,7 +510,15 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "student_mssv_unique": {
+          "name": "student_mssv_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "mssv"
+          ]
+        }
+      }
     },
     "public.major": {
       "name": "major",
@@ -515,10 +549,10 @@
       "uniqueConstraints": {
         "major_name_unique": {
           "name": "major_name_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       }
     },
@@ -551,10 +585,10 @@
       "uniqueConstraints": {
         "priority_name_unique": {
           "name": "priority_name_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "name"
-          ],
-          "nullsNotDistinct": false
+          ]
         }
       }
     },
@@ -605,6 +639,7 @@
         "term": {
           "name": "term",
           "type": "term",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -676,8 +711,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "ammount": {
-          "name": "ammount",
+        "amount": {
+          "name": "amount",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -736,10 +771,8 @@
   },
   "schemas": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
-  },
-  "id": "f8e3c5d8-50f2-4586-9f43-8674ec18f976",
-  "prevId": "00000000-0000-0000-0000-000000000000"
+    "tables": {}
+  }
 }

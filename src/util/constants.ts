@@ -40,18 +40,18 @@ export const END_POINTS = {
   COURSE_OPEN: {
     BASE: "/course-open",
     CREATE: "",
+    CURRENT_STATE: "/current-state",
     GET_ALL_ONE_TERM: "",
     UPDATE: "/:id",
-    DELETE: "/:courseId/:availableCourseId",
+    DELETE: "",
   },
   COURSE_REGISTRATION: {
     BASE: "/course-registration",
     CREATE: "",
     GET_ALL: "",
-    GET_CURRENT: "/current",
     GET_ONE: "/:id",
     UPDATE: "/:id",
-    DELETE: "/:id",
+    DELETE: "",
   },
   PAYMENT: {
     BASE: "/payment",

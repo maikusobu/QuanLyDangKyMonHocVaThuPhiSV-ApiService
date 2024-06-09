@@ -1,4 +1,5 @@
 import {
+  availableCourse,
   availableCourseItem,
   courseRegistration,
   courseRegistrationItem,
@@ -220,29 +221,72 @@ export class CourseOpenRepository {
     return data;
   }
 
+  // async findAllOneTerm(term: TERM, year: number) {
+  //   const termResolved = resolveTerm(term);
+  //   const url = this.configService.get<string>("service");
+  //   // console.log(url);
+  //   const { data: stateData } = await firstValueFrom(
+  //     this.httpService.get(
+  //       `${url}/registration_state?term=${termResolved}&year=${year}`,
+  //     ),
+  //   );
+
+  //   const stateId = stateData._id;
+
+  //   const { data: openCourseData } = await firstValueFrom(
+  //     this.httpService.get(`${url}/open_course?stateId=${stateId}`),
+  //   );
+
+  //   const result = {
+  //     available: stateData.available,
+  //     stateId: stateData._id,
+  //     openCourseData,
+  //   };
+
+  //   return result;
+  // }
+
   async findAllOneTerm(term: TERM, year: number) {
-    const termResolved = resolveTerm(term);
-    const url = this.configService.get<string>("service");
-    // console.log(url);
-    const { data: stateData } = await firstValueFrom(
-      this.httpService.get(
-        `${url}/registration_state?term=${termResolved}&year=${year}`,
+    // check if available course exists, if not, create one
+    let currentTerm = await this.drizzle.query.availableCourse.findFirst({
+      where: and(
+        eq(availableCourse.term, term),
+        eq(availableCourse.year, year),
       ),
-    );
+    });
 
-    const stateId = stateData._id;
+    if (!currentTerm) {
+      currentTerm = await this.drizzle
+        .insert(availableCourse)
+        .values({ term, year, available: true })
+        .returning()[0];
+    }
 
-    const { data: openCourseData } = await firstValueFrom(
-      this.httpService.get(`${url}/open_course?stateId=${stateId}`),
-    );
+    // get all available courses for the term
+    const availableCourses =
+      await this.drizzle.query.availableCourseItem.findMany({
+        where: eq(availableCourseItem.availableCourseId, currentTerm.id),
+        columns: {
+          availableCourseId: true,
+        },
+        with: {
+          course: {
+            columns: {
+              facultyId: false,
+              courseTypeId: false,
+            },
+            with: {
+              faculty: true,
+              courseType: true,
+            },
+          },
+        },
+      });
 
-    const result = {
-      available: stateData.available,
-      stateId: stateData._id,
-      openCourseData,
+    return {
+      available: currentTerm.available,
+      availableCourses,
     };
-
-    return result;
   }
 
   async createCourseOpen(item: InsertAvailableCourseItem) {

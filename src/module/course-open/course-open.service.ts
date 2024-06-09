@@ -52,7 +52,7 @@ export class CourseOpenService {
   }
 
   async findAllOneTerm(findCourseOpenDto: FindCourseOpenDto) {
-    return this.courseOpenRepository.findAllOneTerm(
+    return await this.courseOpenRepository.findAllOneTerm(
       findCourseOpenDto.term,
       findCourseOpenDto.year,
     );

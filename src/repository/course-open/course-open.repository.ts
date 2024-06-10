@@ -6,20 +6,14 @@ import {
 import { CloseCurrentStateDto } from "@module/course-open/dto/close-current-state.dto";
 import { CreateCourseOpenDto } from "@module/course-open/dto/create-course-open.dto";
 import { DeleteCourseOpenDto } from "@module/course-open/dto/delete-course-open.dto";
-import { HttpService } from "@nestjs/axios";
 import { HttpException, Inject, Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import { Drizzle } from "@type/drizzle.type";
 import { TERM } from "@util/constants";
 import { and, eq, inArray } from "drizzle-orm";
 
 @Injectable()
 export class CourseOpenRepository {
-  constructor(
-    @Inject("DRIZZLE") private drizzle: Drizzle,
-    private readonly httpService: HttpService,
-    private configService: ConfigService,
-  ) {}
+  constructor(@Inject("DRIZZLE") private drizzle: Drizzle) {}
 
   async closeCurrentState(closeCurrentStateDto: CloseCurrentStateDto) {
     const res = await this.drizzle
@@ -202,50 +196,6 @@ export class CourseOpenRepository {
   //   }
   // }
 
-  // async create(createCourseOpenDto: CreateCourseOpenDto) {
-  //   const url = this.configService.get<string>("service");
-  //   const { data: stateData } = await firstValueFrom(
-  //     this.httpService.get(
-  //       `${url}/registration_state?stateId=${createCourseOpenDto.stateId}`,
-  //     ),
-  //   );
-
-  //   if (!stateData || !stateData.available) {
-  //     return new HttpException(
-  //       "State does not available for registration",
-  //       400,
-  //     );
-  //   }
-
-  //   const insertData = {
-  //     stateId: createCourseOpenDto.stateId,
-  //     majorId: createCourseOpenDto.majorId,
-  //     majorName: createCourseOpenDto.majorName,
-  //     courses: [],
-  //   };
-
-  //   for (const course of createCourseOpenDto.courses) {
-  //     insertData.courses.push({
-  //       courseId: course.courseId,
-  //       courseName: course.courseName,
-  //       courseNumberOfPeriods: course.numberOfPeriods,
-  //     });
-  //   }
-
-  //   const { data } = await firstValueFrom(
-  //     this.httpService.post(`${url}/open_course`, insertData),
-  //   );
-
-  //   // Register students in background
-  //   this.registerStudentsInBackground(createCourseOpenDto, stateData).catch(
-  //     (error) => {
-  //       console.error("Failed to register students in background:", error);
-  //     },
-  //   );
-
-  //   return data;
-  // }
-
   // Background task for registering students
   // private async registerStudentsInBackground(
   //   createCourseOpenDto: CreateCourseOpenDto,
@@ -344,30 +294,5 @@ export class CourseOpenRepository {
   //     );
   //   });
   //   return data;
-  // }
-
-  // async findAllOneTerm(term: TERM, year: number) {
-  //   const termResolved = resolveTerm(term);
-  //   const url = this.configService.get<string>("service");
-  //   // console.log(url);
-  //   const { data: stateData } = await firstValueFrom(
-  //     this.httpService.get(
-  //       `${url}/registration_state?term=${termResolved}&year=${year}`,
-  //     ),
-  //   );
-
-  //   const stateId = stateData._id;
-
-  //   const { data: openCourseData } = await firstValueFrom(
-  //     this.httpService.get(`${url}/open_course?stateId=${stateId}`),
-  //   );
-
-  //   const result = {
-  //     available: stateData.available,
-  //     stateId: stateData._id,
-  //     openCourseData,
-  //   };
-
-  //   return result;
   // }
 }

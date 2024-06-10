@@ -2,8 +2,8 @@ import { CreateCourseDto } from "@module/course/dto/create-course.dto";
 import { FilterCourseDto } from "@module/course/dto/filter-course.dto";
 import { UpdateCourseDto } from "@module/course/dto/update-course.dto";
 import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
-import { and, eq, inArray, like } from "drizzle-orm";
-import { course } from "@db/schema";
+import { and, eq, inArray, like, sql } from "drizzle-orm";
+import { availableCourse, course } from "@db/schema";
 import { Drizzle } from "@type/drizzle.type";
 import { HttpService } from "@nestjs/axios";
 import { ConfigService } from "@nestjs/config";
@@ -136,10 +136,29 @@ export class CourseRepository {
 
   private async checkCurrentState() {
     const url = this.configService.get<string>("service");
-    const response = await firstValueFrom(
+    const { data: courseRegistrationState } = await firstValueFrom(
       this.httpService.get(`${url}/registrationState`),
     );
 
-    return response.data.available;
+    let result = true;
+    if (!courseRegistrationState) {
+      result = true;
+    } else if (!courseRegistrationState.available) {
+      result = false;
+      return false;
+    }
+
+    const courseOpenState = await this.drizzle.execute(sql`
+    SELECT * 
+    FROM ${availableCourse}
+    ORDER BY ${availableCourse.year} DESC, ${availableCourse.term} DESC
+    LIMIT 1`);
+
+    if (courseOpenState.length > 0) {
+      const { available } = courseOpenState[0];
+      return result && available;
+    } else {
+      return result;
+    }
   }
 }

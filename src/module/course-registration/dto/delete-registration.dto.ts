@@ -1,13 +1,9 @@
-import { TERM } from "@util/constants";
-import { IsEnum, IsNumber } from "class-validator";
+import { IsString } from "class-validator";
 
 export class DeleteRegistrationDto {
-  @IsNumber()
-  majorId: number;
+  @IsString()
+  courseRegistrationId: string;
 
-  @IsNumber()
-  year: number;
-
-  @IsEnum(TERM)
-  term: TERM;
+  @IsString()
+  stateId: string;
 }

@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   Patch,
@@ -34,7 +33,7 @@ export class CourseOpenController {
     return this.courseOpenService.findAllOneTerm(findCourseOpenDto);
   }
 
-  @Delete(END_POINTS.COURSE_OPEN.DELETE)
+  @Post(END_POINTS.COURSE_OPEN.DELETE)
   delete(@Body() deleteCourseOpenDto: DeleteCourseOpenDto) {
     return this.courseOpenService.delete(deleteCourseOpenDto);
   }

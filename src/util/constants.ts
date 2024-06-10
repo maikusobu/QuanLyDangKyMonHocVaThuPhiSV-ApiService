@@ -42,7 +42,7 @@ export const END_POINTS = {
     CREATE: "",
     GET_ALL_ONE_TERM: "",
     UPDATE: "/:availableCourseId",
-    DELETE: "",
+    DELETE: "/delete",
   },
   COURSE_REGISTRATION: {
     BASE: "/course-registration",

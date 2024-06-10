@@ -1,11 +1,12 @@
-import { TERM } from "@util/constants";
+import { IsArray, IsNumber, IsString } from "class-validator";
 
 export class CreateCourseRegistrationDto {
-  registrationDate: string;
+  @IsNumber()
+  majorId: number;
 
-  year: number;
+  @IsString()
+  stateId: string;
 
-  term: TERM;
-
-  studentId: number;
+  @IsArray()
+  courses: number[];
 }

@@ -1,0 +1,1 @@
+ALTER TABLE "available_course" ADD COLUMN "available" boolean DEFAULT true NOT NULL;

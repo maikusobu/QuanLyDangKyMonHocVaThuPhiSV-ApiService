@@ -107,6 +107,9 @@ export class TuitionRepository {
       totalActualAmount: actualAmount,
       courseRegistrationId: courseRegistrationId,
     };
+
+    console.log("Computed tuition for registration: ", courseRegistrationId);
+
     return await this.drizzle.insert(tuition).values(newTuition).returning();
   }
 }

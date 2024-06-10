@@ -34,8 +34,8 @@ export const permissionData: InsertPermission[] = [
     action: PERMISSIONS.DELETE,
   },
   {
-    endpoint: `${END_POINTS.COURSE_OPEN.BASE}/${END_POINTS.COURSE_OPEN.CURRENT_STATE}`,
-    action: PERMISSIONS.POST,
+    endpoint: `${END_POINTS.COURSE_OPEN.BASE}/${END_POINTS.COURSE_OPEN.UPDATE}`,
+    action: PERMISSIONS.PATCH,
   },
   {
     endpoint: `${END_POINTS.COURSE_OPEN.BASE}/${END_POINTS.COURSE_OPEN.GET_ALL_ONE_TERM}`,

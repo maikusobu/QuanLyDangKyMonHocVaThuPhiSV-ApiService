@@ -1,21 +1,28 @@
-import { IsArray, IsNumber, IsString } from "class-validator";
+import { IsArray, IsNumber } from "class-validator";
+
+// export class CreateCourseOpenDto {
+//   @IsNumber()
+//   majorId: number;
+
+//   @IsString()
+//   majorName: string;
+
+//   @IsString()
+//   stateId: string;
+
+//   @IsArray()
+//   courses: CourseOpen[];
+// }
+
+// type CourseOpen = {
+//   courseId: number;
+//   courseName: string;
+//   numberOfPeriods: number;
+// };
 
 export class CreateCourseOpenDto {
-  @IsNumber()
-  majorId: number;
-
-  @IsString()
-  majorName: string;
-
-  @IsString()
-  stateId: string;
-
   @IsArray()
-  courses: CourseOpen[];
+  courses: number[];
+  @IsNumber()
+  availableCourseId: number;
 }
-
-type CourseOpen = {
-  courseId: number;
-  courseName: string;
-  numberOfPeriods: number;
-};

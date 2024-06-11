@@ -82,7 +82,6 @@ export class CourseOpenRepository {
   }
 
   async findAllOneTerm(term: TERM, year: number) {
-    // check if available course exists, if not, create one
     let currentTerm = await this.drizzle.query.availableCourse.findFirst({
       where: and(
         eq(availableCourse.term, term),
@@ -91,10 +90,11 @@ export class CourseOpenRepository {
     });
 
     if (!currentTerm) {
-      currentTerm = await this.drizzle
+      const test = await this.drizzle
         .insert(availableCourse)
-        .values({ term, year, available: true })
-        .returning()[0];
+        .values({ term: term, year: year, available: true })
+        .returning();
+      currentTerm = test[0];
 
       return {
         availableCourseId: currentTerm.id,

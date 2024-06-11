@@ -44,6 +44,7 @@ export class CourseRegistrationRepository {
     const termResolved = resolveTerm(term);
     const url = this.configService.get<string>("service");
     // console.log(url);
+
     const { data: stateData } = await firstValueFrom(
       this.httpService.get(
         `${url}/registration_state?term=${termResolved}&year=${year}`,
@@ -58,7 +59,7 @@ export class CourseRegistrationRepository {
 
     const registrations = await Promise.all(
       registrationsData.map(async (registration: any) => {
-        const { majorId, courseIds } = registration;
+        const { majorId, courses: courseIds, _id } = registration;
 
         const majorDataPromise = this.drizzle.query.major.findFirst({
           where: eq(major.id, majorId),
@@ -82,6 +83,7 @@ export class CourseRegistrationRepository {
         ]);
 
         return {
+          _id,
           major: majorData,
           courses,
         };
@@ -125,8 +127,6 @@ export class CourseRegistrationRepository {
     const { data: insertedId } = await firstValueFrom(
       this.httpService.post(`${url}/course_registration`, insertData),
     );
-
-    // Register students in background
     this.registerStudentsInBackground(
       createCourseRegistrationDto,
       stateData,

@@ -137,7 +137,7 @@ export class CourseRepository {
   private async checkCurrentState() {
     const url = this.configService.get<string>("service");
     const { data: courseRegistrationState } = await firstValueFrom(
-      this.httpService.get(`${url}/registrationState`),
+      this.httpService.get(`${url}/registration_state`),
     );
 
     let result = true;

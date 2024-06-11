@@ -51,6 +51,7 @@ export class CourseRegistrationRepository {
     );
 
     const stateId = stateData._id;
+    // console.log("stateID: ", stateId);
 
     const { data: registrationsData } = await firstValueFrom(
       this.httpService.get(`${url}/course_registration?stateId=${stateId}`),
@@ -58,14 +59,14 @@ export class CourseRegistrationRepository {
 
     const registrations = await Promise.all(
       registrationsData.map(async (registration: any) => {
-        const { majorId, courseIds } = registration;
-
+        const { majorId, courses, _id } = registration;
+        console.log(majorId, courses, _id);
         const majorDataPromise = this.drizzle.query.major.findFirst({
           where: eq(major.id, majorId),
         });
 
         const coursesPromise = this.drizzle.query.course.findMany({
-          where: inArray(course.id, courseIds),
+          where: inArray(course.id, courses),
           columns: {
             courseTypeId: false,
             facultyId: false,
@@ -76,14 +77,15 @@ export class CourseRegistrationRepository {
           },
         });
 
-        const [majorData, courses] = await Promise.all([
+        const [majorData, coursesData] = await Promise.all([
           majorDataPromise,
           coursesPromise,
         ]);
 
         return {
+          _id,
           major: majorData,
-          courses,
+          courses: coursesData,
         };
       }),
     );

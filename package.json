@@ -25,6 +25,7 @@
     "db:push": "npx drizzle-kit push",
     "db:studio": "npx drizzle-kit studio --port 8888",
     "db:seed": "ts-node ./src/db/seed.ts",
+    "db:permissionseed": "ts-node ./src/db/permission-seed.ts",
     "db:drop": "npx drizzle-kit drop"
   },
   "dependencies": {

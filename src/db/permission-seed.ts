@@ -3,7 +3,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { departmentPermission, permission } from "./schema";
 import { permissionData } from "./seed/permission";
-import { END_POINTS } from "@util/constants";
+import { END_POINTS } from "../util/constants";
 const permissionSeed = async () => {
   const client = new Pool({
     connectionString: process.env.DATABASE_URL,

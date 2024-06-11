@@ -72,7 +72,7 @@ export class CourseRepository {
       }
 
       // create a new course with the updated values
-      let newCourse = {
+      const newCourse = {
         name: null,
         courseTypeId: null,
         facultyId: null,
@@ -80,19 +80,19 @@ export class CourseRepository {
       };
 
       if (!body.name) {
-        newCourse = { name: prevCourse[0].name, ...newCourse };
+        newCourse.name = prevCourse[0].name;
       } else {
-        newCourse = { name: body.name, ...newCourse };
+        newCourse.name = body.name;
       }
       if (!body.courseTypeId) {
-        newCourse = { courseTypeId: prevCourse[0].courseTypeId, ...newCourse };
+        newCourse.courseTypeId = prevCourse[0].courseTypeId;
       } else {
-        newCourse = { courseTypeId: body.courseTypeId, ...newCourse };
+        newCourse.courseTypeId = body.courseTypeId;
       }
       if (!body.facultyId) {
-        newCourse = { facultyId: prevCourse[0].facultyId, ...newCourse };
+        newCourse.facultyId = prevCourse[0].facultyId;
       } else {
-        newCourse = { facultyId: body.facultyId, ...newCourse };
+        newCourse.facultyId = body.facultyId;
       }
 
       return await this.drizzle.insert(course).values(newCourse).returning();

@@ -37,7 +37,10 @@ export class CourseRegistrationService {
         closeCurrentStateDto,
       );
 
-    this.computeTuition(res.term, res.year).catch((err) => {
+    this.computeTuition(
+      closeCurrentStateDto.term,
+      closeCurrentStateDto.year,
+    ).catch((err) => {
       console.error("Error computing tuition:", err);
     });
 

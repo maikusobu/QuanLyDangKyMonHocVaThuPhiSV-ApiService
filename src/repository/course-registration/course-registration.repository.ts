@@ -59,8 +59,8 @@ export class CourseRegistrationRepository {
 
     const registrations = await Promise.all(
       registrationsData.map(async (registration: any) => {
-        const { majorId, courses } = registration;
-        console.log(majorId, courses);
+        const { majorId, courses, _id } = registration;
+        console.log(majorId, courses, _id);
         const majorDataPromise = this.drizzle.query.major.findFirst({
           where: eq(major.id, majorId),
         });
@@ -83,6 +83,7 @@ export class CourseRegistrationRepository {
         ]);
 
         return {
+          _id,
           major: majorData,
           courses: coursesData,
         };

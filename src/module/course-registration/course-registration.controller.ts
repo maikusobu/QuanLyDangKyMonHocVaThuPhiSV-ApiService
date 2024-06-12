@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Delete,
-  Query,
-  Patch,
-} from "@nestjs/common";
+import { Controller, Get, Post, Body, Query, Patch } from "@nestjs/common";
 import { CourseRegistrationService } from "./course-registration.service";
 import { END_POINTS } from "@util/constants";
 import { GetAllCourseRegistrationDto } from "./dto/get-all-course-registration.dto";
@@ -41,7 +33,7 @@ export class CourseRegistrationController {
     );
   }
 
-  @Delete(END_POINTS.COURSE_REGISTRATION.DELETE)
+  @Post(END_POINTS.COURSE_REGISTRATION.DELETE)
   remove(@Body() deleteRegistrationDto: DeleteRegistrationDto) {
     return this.courseRegistrationService.remove(deleteRegistrationDto);
   }

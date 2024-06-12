@@ -44,6 +44,7 @@ export class CourseRegistrationRepository {
     const termResolved = resolveTerm(term);
     const url = this.configService.get<string>("service");
     // console.log(url);
+
     const { data: stateData } = await firstValueFrom(
       this.httpService.get(
         `${url}/registration_state?term=${termResolved}&year=${year}`,
@@ -127,8 +128,6 @@ export class CourseRegistrationRepository {
     const { data: insertedId } = await firstValueFrom(
       this.httpService.post(`${url}/course_registration`, insertData),
     );
-
-    // Register students in background
     this.registerStudentsInBackground(
       createCourseRegistrationDto,
       stateData,

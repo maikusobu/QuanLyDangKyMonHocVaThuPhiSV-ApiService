@@ -36,7 +36,7 @@ export class StudentRepository {
     return studentCreated;
   }
   async findStudentById(id: number) {
-    return await this.drizzle.query.student.findFirst({
+    const studentRes = await this.drizzle.query.student.findFirst({
       where: eq(student.id, id),
       with: {
         major: {
@@ -52,6 +52,8 @@ export class StudentRepository {
         priority: true,
       },
     });
+
+    return studentRes;
   }
   async updateStudentById(id: number, updateStudentDto: CreateStudentDto) {
     if (updateStudentDto.districtId) {

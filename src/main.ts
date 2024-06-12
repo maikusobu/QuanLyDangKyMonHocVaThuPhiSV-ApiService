@@ -12,14 +12,14 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from "@nestjs/platform-fastify";
-// import { AtGuard } from "@common/guards/at.guard";
+import { AtGuard } from "@common/guards/at.guard";
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
   );
   const configService = app.get(ConfigService);
-  // const reflector = app.get("Reflector");
+  const reflector = app.get("Reflector");
   const port = configService.get<number>("port");
   const env = configService.get<string>("env");
   const jwt = configService.get<string>("jwt_access_secret");
@@ -29,7 +29,7 @@ async function bootstrap() {
   });
   app.use(helmet());
   app.use(cookieParser.default());
-  // app.useGlobalGuards(new AtGuard(reflector));
+  app.useGlobalGuards(new AtGuard(reflector));
   // app.useGlobalGuards(new PermissionGuard(reflector, app.get(AuthRepository)));
   app.setGlobalPrefix(END_POINTS.BASE);
   app.useGlobalPipes(

@@ -25,7 +25,7 @@ async function bootstrap() {
   const jwt = configService.get<string>("jwt_access_secret");
 
   app.enableCors({
-    origin: false,
+    origin: true,
   });
   app.use(helmet());
   app.use(cookieParser.default());

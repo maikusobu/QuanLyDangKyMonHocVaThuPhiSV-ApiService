@@ -93,7 +93,7 @@ export class TuitionRepository {
         .set({
           tuitionDate: registerInformation.registrationDate,
           totalRegisterAmount: registerAmount,
-          totalActualAmount: actualAmount,
+          totalActualAmount: Math.ceil(actualAmount),
         })
         .where(eq(tuition.id, existingTuition.id))
         .returning();
@@ -104,7 +104,7 @@ export class TuitionRepository {
     const newTuition = {
       tuitionDate: registerInformation.registrationDate,
       totalRegisterAmount: registerAmount,
-      totalActualAmount: actualAmount,
+      totalActualAmount: Math.ceil(actualAmount),
       courseRegistrationId: courseRegistrationId,
     };
 

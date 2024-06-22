@@ -34,7 +34,7 @@ export class CourseRegistrationRepository {
       ),
     });
 
-    if (!courseOpenState || !courseOpenState.available) {
+    if (!courseOpenState || courseOpenState.available) {
       return new HttpException(
         "Course registration is not available, please check course-open state",
         400,
@@ -43,7 +43,6 @@ export class CourseRegistrationRepository {
 
     const termResolved = resolveTerm(term);
     const url = this.configService.get<string>("service");
-    // console.log(url);
 
     const { data: stateData } = await firstValueFrom(
       this.httpService.get(

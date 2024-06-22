@@ -1,7 +1,7 @@
 import { InsertUser } from "@db/schema";
 
 /**
- * Password for all seed users is "12345678@Xx"
+ * Password for all seed users is "/"
  */
 // Phòng đào tạo
 export const user_pdt: InsertUser[] = [
